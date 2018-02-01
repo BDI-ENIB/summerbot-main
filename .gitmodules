@@ -1,6 +1,9 @@
 [submodule "summerbot-claw"]
-	path = summerbot-claw
+	path = src/summerbot-claw
 	url = https://github.com/arenibProjects/summerbot-claw.git
 [submodule "summerbot-motionbase"]
-	path = summerbot-motionbase
+	path = src/summerbot-motionbase
 	url = https://github.com/arenibProjects/summerbot-motionbase.git
+[submodule "StepperDriver"]
+	path = src/summerbot-motionbase/src/StepperDriver
+	url = https://github.com/laurb9/StepperDriver.git
