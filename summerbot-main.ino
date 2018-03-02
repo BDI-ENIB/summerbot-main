@@ -6,14 +6,14 @@
 #include "pinout.h"
 #define STEPS_PER_REV 200
 IntervalTimer motionTimer;
-DRV8825* right=new DRV8825(STEPS_PER_REV, R_DIR, R_STEP, M1, M2, M3);// steps per rev,dir pin, step pin, mode pin 0, mode pin 1, mode pin 2
-DRV8825* left =new DRV8825(STEPS_PER_REV, R_DIR, R_STEP, M1, M2, M3);
+DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
+MotionBase mb(dd,33,63); // motors, wheel radius, robot radius, x, y, a
 MotionBase mb(left,right,33,63); // left motor, right motor, wheel radius, robot radius, x, y, a
 
 void setup (){
   //Timer
-  motionTimer.begin(motionLoop,1000);// 1kHz (1000 is the period in microS)
-  motionTimer.priority(129); //slightly above normal
+  motionTimer.begin(motionLoop,100);// 1kHz (100 is the period in microS)
+  motionTimer.priority(1); //slightly above normal
   
   //Serial
   Serial.begin(250000);
