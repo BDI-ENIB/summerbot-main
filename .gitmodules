@@ -5,5 +5,5 @@
 	path = src/summerbot-motionbase
 	url = https://github.com/arenibProjects/summerbot-motionbase.git
 [submodule "summerbot-sensormanager"]
-	path = summerbot-sensormanager
+	path = src/summerbot-sensormanager
 	url = https://github.com/arenibProjects/summerbot-sensormanager.git
