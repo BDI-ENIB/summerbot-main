@@ -1,13 +1,15 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+#include "src/summerbot-sensormanager/SensorManager.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
-#include "src/summerbot-sensormanager/SensorManager.h"
 #include "pinout.h"
+
 #define STEPS_PER_REV 200
 #define DISTANCETHRESHOLD 300
-#define STOPTIME
+#define STOPTIME 100 //temporary
+
 IntervalTimer motionTimer;
 DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
 MotionBase mb(dd,33,63); // motors, wheel radius, robot radius, x, y, a
@@ -36,7 +38,8 @@ void setup (){
   
   //Moves         
   mb.pause();
-  mb.forward(500);
+  mb.translate(400);
+  mb.translate(-100);
   
   delayStarter();
 }
@@ -45,7 +48,7 @@ void delayStarter(){
 	double tmp = 0;
 	boolean hasStarterBeenInserted = false;
 	while (true){
-		tmp = (double)(tmp*99.0+digitalread(STARTER))/100.0;
+		tmp = (double)(tmp*99.0+digitalRead(STARTER))/100.0;
 		if (!hasStarterBeenInserted && tmp >= 0.99){
 			hasStarterBeenInserted=true;		
 		}
