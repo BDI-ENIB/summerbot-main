@@ -34,7 +34,6 @@ void setup (){
   
   //Serial
   Serial.begin(250000);
-  //commands_init();
   
   //Moves
 
