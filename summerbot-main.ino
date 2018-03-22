@@ -34,7 +34,8 @@ void setup (){
   
   //Serial
   Serial.begin(250000);
-  
+  delay(5000);
+
   //Moves
 
   Serial.println("mb.pause");
