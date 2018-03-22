@@ -8,13 +8,13 @@
 
 #define STEPS_PER_REV 200
 #define DISTANCETHRESHOLD 300
-#define STOPTIME 100 //temporary
+#define MATCHLENGHT 100'000 //millisec
 
 IntervalTimer motionTimer;
 DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
 MotionBase mb(dd,33,63); // motors, wheel radius, robot radius, x, y, a
 SensorManager* sensorManager;
-unsigned long int timer = 0;
+double startTime ;
 
 void setup (){
   //SensorManager
@@ -36,23 +36,30 @@ void setup (){
   Serial.begin(250000);
   //commands_init();
   
-  //Moves         
+  //Moves
+
+  Serial.println("mb.pause");
   mb.pause();
+  Serial.println("mb.translate");
   mb.translate(400);
   mb.translate(-100);
-  
+  Serial.println("entering starter loop");
   delayStarter();
+  startTime = millis();
 }
 
 void delayStarter(){
 	double tmp = 0;
 	boolean hasStarterBeenInserted = false;
+	Serial.println("starter not inserted");
 	while (true){
 		tmp = (double)(tmp*99.0+digitalRead(STARTER))/100.0;
 		if (!hasStarterBeenInserted && tmp >= 0.99){
 			hasStarterBeenInserted=true;		
+			Serial.println("starter inserted");
 		}
 		if (hasStarterBeenInserted && tmp <= 0.01){
+			Serial.println("starting");
 			return;
 		}
 		delay(1);
@@ -60,7 +67,7 @@ void delayStarter(){
 }
 
 void loop (){
-	if(++timer>=STOPTIME ||
+	if(millis()>=startTime+MATCHLENGHT ||
 			sensorManager->detectObject(IRS1, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS2, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS3, DISTANCETHRESHOLD) ||
@@ -72,6 +79,7 @@ void loop (){
 		mb.pause();
 		return;
 	}
+	Serial.println("mb.resume()");
 	mb.resume();
 }
 void motionLoop(){
