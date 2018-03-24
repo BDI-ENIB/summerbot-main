@@ -42,6 +42,12 @@ void setup (){
   Serial.println("mb.translate");
   mb.translate(400);
   mb.translate(-100);
+  mb.rotate(3.14/2);
+  mb.translate(200);
+  mb.rotate(3.14/2);
+  mb.translate(-730);
+  mb.rotate(-3.14/2);
+  mb.translate(-260);
   Serial.println("entering starter loop");
   delayStarter();
   startTime = millis();
