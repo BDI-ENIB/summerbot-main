@@ -2,20 +2,25 @@
 #define IA_H 1
 
 #include "arduino.h"
-#include "src/summerbot-motionbase/motionbase.hpp"
+#include "src/summerbot-motionbase/motionbase.h"
 #include "src/summerbot-claw/claw.hpp"
 
 class IA{
+ 
+  public:
+    enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer};
+    typedef struct {CommandType commandType; double args[3];}Command;
+  private:
+    Command protocol[50];
+    MotionBase *mb;
+    Claw *claw;
+    int protocolLenght = 0;
+    int currentCommandIndex = 0;
+    
 	public:
-		IA();
+		IA(MotionBase *mb, Claw *claw);
+    void addCommands(Command commandList[]);
+    void executeCommand(CommandType command, double args[3]);
 		void update();
-	
-	private:
-		Command[50] protocol;
-		MotionBase *mb;
-		Pince *claw;
-		int protocolLenght = 0;;
-		enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer};
-		typedef struct Command {CommandType commandtype; double[3] args};
-}
+};
 #endif

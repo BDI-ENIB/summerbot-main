@@ -3,9 +3,11 @@
 
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
+#include "src/summerbot-sensormanager/sensormanager.hpp"
 #include "pinout.h"
 #include "terrain.h"
 #include "robot.h"
+#include "ia.hpp"
 
 #define STEPS_PER_REV 200
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 150 //15cm
@@ -14,7 +16,7 @@
 
 IntervalTimer motionTimer;
 DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
-MotionBase *mb(dd,33,63); // motors, wheel radius, robot radius, x, y, a
+MotionBase *mb = new MotionBase(dd,55,63); // motors, wheel radius, robot radius, x, y, a
 
 Servo tmplift;
 Servo tmpClampL;
@@ -59,25 +61,25 @@ void setup (){
 	//Rappel: CommandType{forward, rotate, moveTo, load, unload, stack}
 	mb->pause();
 	boolean isRightSide = digitalRead(SIDE); //Bouton SIDE: Si activé, robot coté droit
-	if(!isRightSide){ //Coté gauche
-		#define IRS ((!isRightSide)?1:-1)*
-		ia.addCommands({
-			{CommandType.forward,{400.0}},
-			{CommandType.forward,{-100.0}},
-			{CommandType.rotate,{IRS 3.14159265/2}},
-			{CommandType.forward,{145.0}},
-			{CommandType.rotate,{IRS 3.14159265/2}},
-			{CommandType.forward,{-730.0}},
-			{CommandType.rotate,{IRS -3.14159265/2}},
-			{CommandType.forward,{-260.0}},
-			{CommandType.forward,{640}},
-			{CommandType.rotate,{IRS 3.14159265/2}},
-			{CommandType.forward,{280}},
-			{CommandType.rotate,{IRS 3.14159265/2}},
-			{CommandType.buldozer,{}}
-			{CommandType.forward,{582}}
-		});
-	}
+	#define IRS ((!isRightSide)?1:-1)*
+    IA::Command coms[]={
+      {ia.CommandType::forward,{400.0}},
+      {ia.CommandType::forward,{-100.0}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::forward,{145.0}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::forward,{-730.0}},
+      {ia.CommandType::rotate,{IRS -3.14159265/2}},
+      {ia.CommandType::forward,{-260.0}},
+      {ia.CommandType::forward,{640}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::forward,{280}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::buldozer,{}},
+      {ia.CommandType::forward,{582}}
+    };
+		ia.addCommands(coms);
+   startTime = millis();
 }
 
 void delayStarter(){
@@ -96,11 +98,11 @@ void delayStarter(){
 }
 
 void loop (){
-	if(++timer>=STOPTIME||
+	if(millis()>=MATCHLENGHT+startTime||
 			sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-			sensorManager->detectObject(IRS2, DISTANCETHRESHOLD_MOVING_BACKWARD) ||
-			sensorManager->detectObject(IRS3, DISTANCETHRESHOLD_MOVING_FORWARD) ||
-			sensorManager->detectObject(IRS4, DISTANCETHRESHOLD_MOVING_FORWARD)){
+			sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
+			sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+			sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD)){
 		mb->pause();
 		return;
 	}

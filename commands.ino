@@ -16,16 +16,16 @@ void commands_update(){
   sCmd.readSerial();
   if(millis()-t>100){
     if(sendPos){
-      Serial.print("POS ");Serial.print(mb.getX());Serial.print(" ");Serial.print(mb.getY());Serial.print(" ");Serial.println(mb.getA());
+      Serial.print("POS ");Serial.print(mb->getX());Serial.print(" ");Serial.print(mb->getY());Serial.print(" ");Serial.println(mb->getA());
     }
     t=millis();
   }
 }
 void goto_command() {
-  mb.moveTo(String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat());
+  mb->moveTo(String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat());
 }
 void setpos_command() {
-  mb.setPosition(String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat());
+  mb->setPosition(String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat(),String(sCmd.next()).toFloat());
 }
 void whois_command() {
   Serial.println("IAM summerbot");
@@ -40,5 +40,5 @@ void stoppos_command(){
   sendPos=false;
 }
 void getmoves_command(){
-  Serial.println("MOV "+mb.movesString());
+  Serial.println("MOV "+mb->movesString());
 }
