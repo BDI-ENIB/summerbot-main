@@ -2,28 +2,20 @@
 #define IA_H 1
 
 #include "arduino.h"
-#include <vector>
+#include "src/summerbot-motionbase/motionbase.hpp"
+#include "src/summerbot-claw/claw.hpp"
 
 class IA{
 	public:
-		void IA()
+		IA();
 		void update();
 	
 	private:
-		enum CommandType{None=0,
-				Forward=1,
-				Rotate=2,
-				MoveTo=3,
-				Load=4,
-				Unload=5,
-				InitClaw=6};
-		typedef struct command {CommandType commandType; int[3] args};
-		typedef struct protocol {string name; vector<command> commands;};
-		vector<protocol> protocols;
-		typedef struct objective {string name; byte priority; boolean isCompleted;};
-		vector<objective> objectives;
-		byte currentObjectiveIndex = 0;
-		byte currentCommandIndex = 0;
-		byte currentProtocolIndex = 0;
+		Command[50] protocol;
+		MotionBase *mb;
+		Pince *claw;
+		int protocolLenght = 0;;
+		enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer};
+		typedef struct Command {CommandType commandtype; double[3] args};
 }
 #endif

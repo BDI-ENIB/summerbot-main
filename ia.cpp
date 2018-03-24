@@ -1,37 +1,46 @@
-#include "ia.h"
+#include "ia.hpp"
 #define LEFT_SIDE true
 
-void IA::IA(){
-	protocols = {{"unloadCubes",{}},{"goToCross1",{}},{"goToCross2",{}},{"goToCross3",{}},{"loadCross",{}}}
-	//TODO: Finir les différents protocoles
-	
-	objectives = {{"cross1", (LEFT_SIDE?5:0), false}, {"cross2", (LEFT_SIDE?4:1), false}, {"cross3", (LEFT_SIDE?3:2), false}, {"cross4", (LEFT_SIDE?2:3), false}, {"cross5", (LEFT_SIDE?1:4), false}, {"cross1", (LEFT_SIDE?0:5), false}, {"startingCube", 6, false}};
+
+IA::IA(MotionBase *mb, Pince *claw){
+	protocol = commandList;
+	this->mb = mb;
+	this->claw = claw;
 }
 
-void updateObjectiveIndex(){
-	byte maxPrio = -1;
-	for(byte i = 0; i<objectives.size(); ++i){
-		if(objectives[i].priority>maxPrio&&!objectives[i].isCompleted){
-			currentObjectiveIndex = i;
-			maxPrio = objectives[i].priority;
-		}
+void IA::addCommands(Command[] commandList){
+	char size = (int)sizeof(commandList)/(int)sizeof(Command);
+	for(char i = 0; i<size; i++){
+		protocol[i+protocolLenght]=commandList[i];
 	}
 }
 
 void IA::update(){
-	//On update les actionneurs, et si ils répondent tous qu'ils ont tout fait...
-	if(true){
+	if(!mb.isBusy()&&!claw.isBusy()){
+		if(currentCommandIndex+1>=protocolLenght){
+			return;		
+		}		
 		currentCommandIndex++;
-		if(currentCommandIndex < protocols[currentProtocolIndex].size()){
-			//Si nous n'avons pas terminé notre séquence d'action, on passe à la suivante
-			
-		}else{
-			//Sinon, on update l'objectif, on en choisis un nouveau, et on conclut les protocoles à executer
-			currentCommandIndex=0
-			updateObjectiveIndex();
-			//TODO lier les objectifs aux protocoles
-		}
-		updateObjectiveIndex();
+		executeCommand(protocol[currentCommandIndex]);
 	}
+}
+
+void IA::executeCommand(Command command, double[3] args){
+		// {forward, rotate, load, unload, stack}
+		if(command==Command.forward){
+			mb->forward(args[0]);
+		}else if(command==Command.rotate){
+			mb->rotate(args[0]);
+		}else if(command==Command.moveTo){
+			mb->moveTo(args[0], args[1], args[2]); //X, Y, TETA
+		}else if(command==Command.load){
+			claw->load();
+		}else if(command==Command.unload){
+			claw->unload();
+		}else if(command==Command.stack){
+			claw->stack();
+		}else if(command==Command.buldozer){
+			//claw.openWide();
+		}
 }
 
