@@ -15,11 +15,13 @@ DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per re
 MotionBase mb(dd,109/2,180/2.0); // motors, wheel radius, robot radius, x, y, a
 SensorManager* sensorManager;
 double startTime ;
+bool side;
 
 void setup (){
 
   pinMode(STARTER, INPUT_PULLUP);  
-	
+	pinMode(SIDE, INPUT_PULLUP);
+ 
   //SensorManager
   sensorManager = new SensorManager();  
   sensorManager->registerNewSensor(IRS1, SHARP);
@@ -34,23 +36,26 @@ void setup (){
   //Serial
   Serial.begin(250000);
   delay(5000);
-
+  Serial.println("entering starter loop");
+  delayStarter();
+  side = digitalRead(SIDE);
+  
   //Moves
-
+  #define ORANGE_FLIP (side?1:-1)
   Serial.println("mb.pause");
   mb.pause();
   Serial.println("mb.translate");
   mb.translate(400);
   mb.translate(-100);
-  mb.rotate(3.14/2);
+  mb.rotate(3.14/2*ORANGE_FLIP);
   mb.translate(200);
-  mb.rotate(3.14/2);
-  mb.translate(-730);
-  mb.rotate(-3.14/2);
-  mb.translate(-260);
-  Serial.println("entering starter loop");
-  delayStarter();
+  mb.rotate(3.14/2*ORANGE_FLIP);
+  mb.translate(-710); //Attention: à vérifier en ligne sur les dimensions du robot.
+  mb.rotate(-3.14/2*ORANGE_FLIP);
+  mb.translate(-270); //Attention: épaisseur cale = 56 à prendre en compte
+  
   startTime = millis();
+  
 }
 
 void delayStarter(){
@@ -72,14 +77,14 @@ void delayStarter(){
 }
 
 void loop (){
-	if(millis()>=startTime+MATCHLENGHT ||
+	/*if(millis()>=startTime+MATCHLENGHT ||
 			sensorManager->detectObject(IRS1, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS2, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS3, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS4, DISTANCETHRESHOLD)){
-		mb.pause();
+		//mb.pause();
 		return;
-	}
+	}*/
 	Serial.println(mb.movesString());
 	mb.resume();
 }
