@@ -7,21 +7,32 @@ IA::IA(MotionBase *mb, Claw *claw){
 	this->claw = claw;
 }
 
-void IA::addCommands(Command commandList[]){
-	char size = (int)sizeof(commandList)/(int)sizeof(Command);
-	for(char i = 0; i<size; i++){
+void IA::addCommands(Command commandList[], short listSize){
+	for(char i = 0; i<listSize; i++){
 		protocol[i+protocolLenght]=commandList[i];
 	}
+  protocolLenght+=listSize;
 }
 
 void IA::update(){
-	if(!mb->isBusy()&&!claw->isBusy()){
+  //Serial.println(this->toString());
+	if(!mb->isBusy()/*&&!claw->isBusy()*/){
 		if(currentCommandIndex+1>=protocolLenght){
 			return;		
 		}		
 		currentCommandIndex++;
 		executeCommand(protocol[currentCommandIndex].commandType, protocol[currentCommandIndex].args);
+    Serial.println(this->toString());
 	}
+}
+
+String IA::toString(){
+  return "Current ActionType: "+String(protocol[currentCommandIndex].commandType)
+        +" | arg[0]: "+String(protocol[currentCommandIndex].args[0])
+        +" | currentCommandIndex: "+String(currentCommandIndex)
+        +" | maxCommandIndex: "+String(protocolLenght)
+        +" | mb->isBusy(): "+(mb->isBusy()?"true":"false")
+        +" | claw->isBusy(): "+(claw->isBusy()?"true":"false");
 }
 
 void IA::executeCommand(CommandType command, double args[3]){

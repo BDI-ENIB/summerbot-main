@@ -10,13 +10,13 @@
 #include "ia.hpp"
 
 #define STEPS_PER_REV 200
-#define DISTANCE_THRESHOLD_MOVING_FORWARD 150 //15cm
-#define DISTANCE_THRESHOLD_MOVING_BACKWARD 50 //5cm
+#define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //15cm
+#define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
 #define MATCHLENGHT 100'000 //millisec
 
 IntervalTimer motionTimer;
 DualDRV8825* dd=new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);// steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
-MotionBase *mb = new MotionBase(dd,55,63); // motors, wheel radius, robot radius, x, y, a
+MotionBase *mb = new MotionBase(dd,109/2.0,180/2.0); // motors, wheel radius, robot radius, x, y, a
 
 Servo tmplift;
 Servo tmpClampL;
@@ -71,15 +71,16 @@ void setup (){
       {ia.CommandType::forward,{-730.0}},
       {ia.CommandType::rotate,{IRS -3.14159265/2}},
       {ia.CommandType::forward,{-260.0}},
-      {ia.CommandType::forward,{640}},
+      {ia.CommandType::forward,{740}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{280}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::buldozer,{}},
-      {ia.CommandType::forward,{582}}
+      {ia.CommandType::forward,{682}}
     };
-		ia.addCommands(coms);
+		ia.addCommands(coms, 14);
    startTime = millis();
+   Serial.println("STARTER RETIRÉ");
 }
 
 void delayStarter(){
@@ -109,6 +110,7 @@ void loop (){
 	commands_update();
 	mb->resume();
 	ia.update();
+  
 }
 void motionLoop(){
 	mb->update();

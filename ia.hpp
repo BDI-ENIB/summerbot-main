@@ -8,6 +8,7 @@
 class IA{
  
   public:
+    String toString();
     enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer};
     typedef struct {CommandType commandType; double args[3];}Command;
   private:
@@ -15,11 +16,11 @@ class IA{
     MotionBase *mb;
     Claw *claw;
     int protocolLenght = 0;
-    int currentCommandIndex = 0;
+    int currentCommandIndex = -1;
     
 	public:
 		IA(MotionBase *mb, Claw *claw);
-    void addCommands(Command commandList[]);
+    void addCommands(Command commandList[], short listSize);
     void executeCommand(CommandType command, double args[3]);
 		void update();
 };
