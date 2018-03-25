@@ -72,28 +72,28 @@ void setup (){
       {ia.CommandType::rotate,{IRS -3.14159265/2}},
       {ia.CommandType::forward,{-260.0}},
       {ia.CommandType::forward,{200.0}},
-      {ia.CommandType::forward,{-200.0}},
+      {ia.CommandType::forward,{-220.0}},
       {ia.CommandType::forward,{740.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{280.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::buldozer,{}},
-      {ia.CommandType::forward,{382.0}}
+      {ia.CommandType::forward,{382.0}},
       {ia.CommandType::recalibrate,{200.0}},
       {ia.CommandType::forward,{-100.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{-1010.0}},
-      {ia.CommandType::recalibrate,{-200.0}},
+      {ia.CommandType::recalibrate,{-30.0}},
       {ia.CommandType::forward,{130.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{-700.0}},
-      {ia.CommandType::recalibrate,{-200.0}},
+      {ia.CommandType::recalibrate,{-30.0}},
       {ia.CommandType::forward,{1680.0}},
       {ia.CommandType::rotate,{-3.14159265/2}},
       {ia.CommandType::forward,{IRS -130.0}},
-      {ia.CommandType::forward,{IRS 300.0}},
+      {ia.CommandType::forward,{IRS 300.0}}
     };
-		ia.addCommands(coms, 14);
+		ia.addCommands(coms, 24);
    startTime = millis();
    Serial.println("STARTER RETIRÉ");
 }

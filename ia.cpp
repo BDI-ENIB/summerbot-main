@@ -51,10 +51,8 @@ void IA::executeCommand(CommandType command, double args[3]){
 			claw->stack();
 		}else if(command==CommandType::buldozer){
 			//claw.openWide();
-		}else if(command==CommandType::recalibrateMovingBackward){
-			for(int i=0;i<args[0]/10+3;++i){
-				mb->translate(10*i);
-			}
+		}else if(command==CommandType::recalibrate){
+      mb->translate(args[0]);
 		}
 }
 
