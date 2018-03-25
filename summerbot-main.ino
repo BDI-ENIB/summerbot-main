@@ -77,14 +77,14 @@ void delayStarter(){
 }
 
 void loop (){
-	/*if(millis()>=startTime+MATCHLENGHT ||
+	if(millis()>=startTime+MATCHLENGHT ||
 			sensorManager->detectObject(IRS1, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS2, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS3, DISTANCETHRESHOLD) ||
 			sensorManager->detectObject(IRS4, DISTANCETHRESHOLD)){
-		//mb.pause();
+		mb.pause();
 		return;
-	}*/
+	}
 	Serial.println(mb.movesString());
 	mb.resume();
 }
