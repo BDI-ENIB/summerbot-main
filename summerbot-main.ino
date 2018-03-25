@@ -10,8 +10,8 @@
 #include "ia.hpp"
 
 #define STEPS_PER_REV 200
-#define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //15cm
-#define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
+#define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //30cm
+#define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //20cm
 #define MATCHLENGHT 100'000 //millisec
 
 IntervalTimer motionTimer;
@@ -29,9 +29,10 @@ double startTime;
 SensorManager* sensorManager;
 
 void setup (){
-	
-	pinMode(SIDE, INPUT);
+  pinMode(DIST_BACK, INPUT_PULLUP);
+	pinMode(SIDE, INPUT_PULLUP);
 	pinMode(STARTER, INPUT_PULLUP);  
+  pinMode(LED13, OUTPUT);
 	
 	//Claw
 	tmplift.attach(9);
@@ -61,7 +62,8 @@ void setup (){
 	//Rappel: CommandType{forward, rotate, moveTo, load, unload, stack}
 	mb->pause();
 	boolean isRightSide = digitalRead(SIDE); //Bouton SIDE: Si activé, robot coté droit
-	#define IRS ((!isRightSide)?1:-1)*
+  Serial.println(isRightSide); // It's magic. DO NOT TOUCH! coté droit = vert
+	#define IRS ((isRightSide)?1:-1)*
     IA::Command coms[]={
       {ia.CommandType::forward,{400.0}},
       {ia.CommandType::forward,{-100.0}},
@@ -71,23 +73,21 @@ void setup (){
       {ia.CommandType::forward,{-730.0}},
       {ia.CommandType::rotate,{IRS -3.14159265/2}},
       {ia.CommandType::forward,{-260.0}},
-      {ia.CommandType::forward,{200.0}},
-      {ia.CommandType::forward,{-220.0}},
       {ia.CommandType::forward,{740.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{280.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::buldozer,{}},
       {ia.CommandType::forward,{382.0}},
-      {ia.CommandType::recalibrate,{200.0}},
+      {ia.CommandType::forward,{200.0}},
       {ia.CommandType::forward,{-100.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{-1010.0}},
-      {ia.CommandType::recalibrate,{-30.0}},
-      {ia.CommandType::forward,{130.0}},
+      {ia.CommandType::recalibrate,{-100.0}},
+      {ia.CommandType::forward,{55.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
-      {ia.CommandType::forward,{-700.0}},
-      {ia.CommandType::recalibrate,{-30.0}},
+      {ia.CommandType::forward,{700.0}},
+      {ia.CommandType::recalibrate,{-100.0}},
       {ia.CommandType::forward,{1680.0}},
       {ia.CommandType::rotate,{-3.14159265/2}},
       {ia.CommandType::forward,{IRS -130.0}},
@@ -101,7 +101,13 @@ void setup (){
 void delayStarter(){
 	double tmp = 0;
 	boolean hasStarterBeenInserted = false;
+  int  timer=0;
 	while (true){
+    timer++;
+    if (timer>1000){
+      timer = 0;
+    }
+    digitalWrite(LED13, (!digitalRead(SIDE)||(timer/1000)*1000-timer==0)?HIGH:LOW);
 		tmp = (double)(tmp*99.0+digitalRead(STARTER))/100.0;
 		if (!hasStarterBeenInserted && tmp >= 0.99){
 			hasStarterBeenInserted=true;		

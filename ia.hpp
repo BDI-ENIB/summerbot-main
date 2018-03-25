@@ -2,6 +2,7 @@
 #define IA_H 1
 
 #include "arduino.h"
+#include "pinout.h"
 #include "src/summerbot-motionbase/motionbase.h"
 #include "src/summerbot-claw/claw.hpp"
 
@@ -12,6 +13,8 @@ class IA{
     enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer, recalibrate};
     typedef struct {CommandType commandType; double args[3];}Command;
   private:
+    boolean isRecalibrating = false;
+    boolean recalibratingFrontward = true;
     Command protocol[50];
     MotionBase *mb;
     Claw *claw;

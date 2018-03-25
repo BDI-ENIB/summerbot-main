@@ -17,6 +17,14 @@ void IA::addCommands(Command commandList[], short listSize){
 void IA::update(){
   //Serial.println(this->toString());
 	if(!mb->isBusy()/*&&!claw->isBusy()*/){
+    if(isRecalibrating){
+      if(digitalRead(DIST_BACK)){
+        isRecalibrating = false;
+      }else{
+        mb->translate((recalibratingFrontward?1:-1)*10);
+      }
+      return;
+    }
 		if(currentCommandIndex+1>=protocolLenght){
 			return;		
 		}		
@@ -52,7 +60,8 @@ void IA::executeCommand(CommandType command, double args[3]){
 		}else if(command==CommandType::buldozer){
 			//claw.openWide();
 		}else if(command==CommandType::recalibrate){
-      mb->translate(args[0]);
+      isRecalibrating = true;
+      recalibratingFrontward = ((args[0]>=0)?true:false);
 		}
 }
 

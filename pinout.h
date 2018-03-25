@@ -1,3 +1,5 @@
+#ifndef PINOUT_H
+#define PINOUT_H
 //servo
 #define SERVO1 2
 #define SERVO2 3
@@ -23,9 +25,9 @@
 #define BTN1 38
 #define BTN2 37
 #define BTN3 36
-#define BTN5 35
-#define SIDE 39
-#define DIST_FRONT 27
+#define BTN4 35
+#define SIDE 27
+#define DIST_FRONT 39
 #define DIST_BACK 28
 #define STARTER 6
 //eink
@@ -44,4 +46,7 @@
 #define R_DIR 31
 #define L_DIR 32
 
+#define LED13 13
+
+#endif
 
