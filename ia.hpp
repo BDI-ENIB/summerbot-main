@@ -9,7 +9,7 @@ class IA{
  
   public:
     String toString();
-    enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer};
+    enum CommandType{forward, rotate, moveTo, load, unload, stack, buldozer, recalibrate};
     typedef struct {CommandType commandType; double args[3];}Command;
   private:
     Command protocol[50];
