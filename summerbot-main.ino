@@ -84,14 +84,20 @@ void setup (){
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{-1010.0}},
       {ia.CommandType::recalibrate,{-100.0}},
-      {ia.CommandType::forward,{55.0}},
+      {ia.CommandType::forward,{80.0}},
       {ia.CommandType::rotate,{IRS 3.14159265/2}},
       {ia.CommandType::forward,{700.0}},
+      {ia.CommandType::rotate,{IRS -3.14159265/2}},
+      {ia.CommandType::forward,{600.0}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::forward,{600}},
+      {ia.CommandType::rotate,{IRS 3.14159265/2}},
+      {ia.CommandType::forward,{-600.0}},
       {ia.CommandType::recalibrate,{-100.0}},
-      {ia.CommandType::forward,{1680.0}},
-      {ia.CommandType::rotate,{-3.14159265/2}},
-      {ia.CommandType::forward,{IRS -130.0}},
-      {ia.CommandType::forward,{IRS 300.0}}
+      {ia.CommandType::forward,{65.0}},
+      {ia.CommandType::rotate,{IRS -3.14159265/2}},
+      {ia.CommandType::forward,{-600.0}}
+      
     };
 		ia.addCommands(coms, 24);
    startTime = millis();
