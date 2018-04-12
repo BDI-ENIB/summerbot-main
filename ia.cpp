@@ -1,60 +1,46 @@
 #include "ia.hpp"
-#define LEFT_SIDE true
 
+IA::IA(MotionBase *mb, Claw *claw):
+  protocols_{},
+  protocolCount_{},
+  selectedProtocolId_{},
+  mb_{mb},
+  claw_{claw} {}
 
-IA::IA(MotionBase *mb, Claw *claw){
-	this->mb = mb;
-	this->claw = claw;
+IA::IA(MotionBase *mb, Claw *claw, Protocol *protocols[], unsigned short int protocolCount):
+  protocols_{},
+  protocolCount_{protocolCount},
+  selectedProtocolId_{},
+  mb_{mb},
+  claw_{claw}  {
+  for (unsigned short int i = 0; i < protocolCount; ++i) {
+    protocols_[i] = protocols[i];
+  }
 }
 
-void IA::addCommands(Command commandList[], short listSize){
-	for(char i = 0; i<listSize; i++){
-		protocol[i+protocolLenght]=commandList[i];
-	}
-  protocolLenght+=listSize;
+void IA::addProtocol(Protocol *protocol) {
+  protocols_[protocolCount_++] = protocol;
 }
 
-void IA::update(){
-  //Serial.println(this->toString());
-	if(!mb->isBusy()/*&&!claw->isBusy()*/){
-		if(currentCommandIndex+1>=protocolLenght){
-			return;		
-		}		
-		currentCommandIndex++;
-		executeCommand(protocol[currentCommandIndex].commandType, protocol[currentCommandIndex].args);
-    Serial.println(this->toString());
-	}
+void IA::autoselectProtocol() {
+  unsigned short int maxPriority = 0;
+  for (unsigned short int selectedProtocolId = 0; selectedProtocolId < protocolCount_; ++selectedProtocolId) {
+    if (!protocols_[selectedProtocolId]->isCompleted()) {
+      if (protocols_[selectedProtocolId]->getPriority() > maxPriority) {
+        maxPriority = protocols_[selectedProtocolId]->getPriority();
+        selectedProtocolId_ = selectedProtocolId;
+      }
+    }
+  }
 }
 
-String IA::toString(){
-  return "Current ActionType: "+String(protocol[currentCommandIndex].commandType)
-        +" | arg[0]: "+String(protocol[currentCommandIndex].args[0])
-        +" | currentCommandIndex: "+String(currentCommandIndex)
-        +" | maxCommandIndex: "+String(protocolLenght)
-        +" | mb->isBusy(): "+(mb->isBusy()?"true":"false")
-        +" | claw->isBusy(): "+(claw->isBusy()?"true":"false");
-}
+void IA::update() {
+  if (!mb_->isBusy() && !claw_->isBusy()) {
 
-void IA::executeCommand(CommandType command, double args[3]){
-		// {forward, rotate, load, unload, stack}
-		if(command==CommandType::forward){
-			mb->translate(args[0]);
-		}else if(command==CommandType::rotate){
-			mb->rotate(args[0]);
-		}else if(command==CommandType::moveTo){
-			mb->moveTo(args[0], args[1], args[2]); //X, Y, TETA
-		}else if(command==CommandType::load){
-			claw->load();
-		}else if(command==CommandType::unload){
-			claw->unload();
-		}else if(command==CommandType::stack){
-			claw->stack();
-		}else if(command==CommandType::buldozer){
-			//claw.openWide();
-		}else if(command==CommandType::recalibrateMovingBackward){
-			for(int i=0;i<args[0]/10+3;++i){
-				mb->translate(10*i);
-			}
-		}
+    if (protocols_[selectedProtocolId_]->isCompleted()) {
+      autoselectProtocol();
+    }
+    protocols_[selectedProtocolId_]->update();
+  }
 }
 
