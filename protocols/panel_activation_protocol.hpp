@@ -1,13 +1,11 @@
 #ifndef PANEL_PROTOCOL
 #define PANEL_PROTOCOL 1
 
-class IA;
-
 class PanelActivationProtocol: public Protocol {
   public:
-    void update(IA *ia); //execute the next action of this protocol
+    void update(); //execute the next action of this protocol
     boolean isCompleted(); //wether the last action of this protocol have already been executed or not
-    unsigned short int getPriority(IA *ia);
+    unsigned short int getPriority();
   private:
     Command[10]={{CommandType.moveTo,{roadMain}]};
 }

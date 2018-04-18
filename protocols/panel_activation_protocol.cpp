@@ -1,6 +1,6 @@
 #include "panel_activation_protocol.hpp"
 
-void update(IA *ia){ //execute the next action of this protocol
+void update(){ //execute the next action of this protocol
   
 }
 
@@ -8,6 +8,6 @@ boolean isCompleted(){ //wether the last action of this protocol have already be
   
 }
 
-unsigned short int getPriority(IA *ia){
+unsigned short int getPriority(){
   return priority;
 }
