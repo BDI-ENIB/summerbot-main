@@ -2,9 +2,9 @@
 #define PROTOCOL_H 1
 class Protocol {
   public:
-    virtual void update() = 0; //execute the next action of this protocol
+    virtual void update(IA ia) = 0; //execute the next action of this protocol
     virtual boolean isCompleted() = 0; //wether the last action of this protocol have already been executed or not
-    virtual unsigned short int getPriority();
+    virtual unsigned short int getPriority(IA ia);
   private:
     enum CommandType {forward, rotate, moveTo, load, unload, stack, buldozer, recalibrateMovingBackward};
     typedef struct {
