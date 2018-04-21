@@ -24,7 +24,7 @@ Servo tmpClampL;
 Servo tmpClampR;
 Claw *claw;
 
-IA ia(mb, claw);
+IA *ia;
 
 SensorManager* sensorManager;
 
@@ -38,6 +38,7 @@ void setup () {
   tmpClampL.attach(10);
   tmpClampR.attach(11);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
+  claw->init();
 
   //SensorManager
   sensorManager = new SensorManager();
@@ -57,12 +58,14 @@ void setup () {
   //MotionBase
   mb->pause();
 
-  //IA
-
-
   //Starter
   delayStarter();
   startTime = millis();
+
+  //IA
+  ia = new IA(mb, claw);
+  ia.createFlag("isTheCubeLoaded", 0);
+  ia.createFlag("side", digitalRead(SIDE));
 }
 
 void delayStarter() {

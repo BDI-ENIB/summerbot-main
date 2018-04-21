@@ -8,6 +8,13 @@
 #define MAX_FLAG_NUMBER 20
 #define MAX_PROTOCOL_NUMBER 15
 
+#define PRIORITY_HIGHEST 5
+#define PRIORITY_VERY_HIGH 4
+#define PRIORITY_HIGH 3
+#define PRIORITY_MEDIUM 2
+#define PRIORITY_LOW 1
+#define PRIORITY_NULL 0
+
 class IA {
   private:
     Protocol *protocols_[MAX_PROTOCOL_NUMBER];
