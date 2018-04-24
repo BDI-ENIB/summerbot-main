@@ -8,5 +8,5 @@
 	path = src/summerbot-sensormanager
 	url = https://github.com/arenibProjects/summerbot-sensormanager.git
 [submodule "summerbot-pathfinder"]
-	path = summerbot-pathfinder
+	path = src/summerbot-pathfinder
 	url = https://github.com/arenibProjects/summerbot-pathfinder.git
