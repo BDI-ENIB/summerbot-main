@@ -3,26 +3,23 @@
 
 #include "src/summerbot-pathfinder/pathfinder.h"
 
-enum Node {
-  G_RoadMain(350,610),
-  G_Start(180,200),
-  G_UnloadingZone1(180,500),
-  G_UnloadingZone2(180,720),
-  G_UnloadingZone3(180,830),
-  G_Cross1(550,650),
-  G_Cross2(990,300),
-  G_Cross3(1500,900);
-  
-  
-  private unsigned short int x, y;
-  public getX(){
-    return x;
-  }
-  public getY(isGreenSide){
-    return isGreenSide?y:3000-y;
-  }
-  public Node(unsigned short int x_, unsigned short int y_): x{x_}, y{y} {}
-}
+class Node {
+  private:
+    int x, y;
+  public:
+    int getX(){
+      return x;
+    }
+    int getY(bool isGreenSide){
+      return isGreenSide?y:3000-y;
+    }
+    Node(int x, int y): x{x}, y{y} {}
+};
+Node G_RoadMain(350,610);
+Node G_Start(180,200);
+Node G_Cross1(550,650);
+Node G_Cross2(990,300);
+Node G_Cross3(1500,900);
 
-Node unloadingZones[6]={G_UnloadingZone1,G_UnloadingZone2,G_UnloadingZone3};
+Node unloadingZones[]={Node(180,500),Node(180,720),Node(180,830)};
 #endif

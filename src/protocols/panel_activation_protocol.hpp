@@ -10,7 +10,7 @@ class PanelActivationProtocol: public Protocol {
     bool isCompleted() override; //wether the last action of this protocol have already been executed or not
     unsigned short int getPriority(IA *ia) override;
   private:
-    Command[10]={{CommandType.moveTo,{roadMain}]}};
+    unsigned short int priority = 0;
 };
 
 #endif
