@@ -21,8 +21,6 @@ class IA {
     unsigned short int protocolCount_;
     unsigned short int selectedProtocolId_;
     void autoselectProtocol();
-    MotionBase *mb_;
-    Claw *claw_;
     typedef struct {
       String id;
       unsigned char value;
@@ -31,6 +29,9 @@ class IA {
     unsigned char maxFlagIndex;
 
   public:
+    MotionBase *mb;
+    Claw *claw;
+
     IA(MotionBase *mb, Claw *claw, Protocol *protocols[], short unsigned int protocolCount);
     IA(MotionBase *mb, Claw *claw);
     void addProtocol(Protocol *protocol);

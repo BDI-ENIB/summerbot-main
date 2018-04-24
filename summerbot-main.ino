@@ -64,8 +64,8 @@ void setup () {
 
   //IA
   ia = new IA(mb, claw);
-  ia.createFlag("isTheCubeLoaded", 0);
-  ia.createFlag("side", digitalRead(SIDE));
+  ia->createFlag("isTheCubeLoaded", 0);
+  ia->createFlag("side", digitalRead(SIDE));
 }
 
 void delayStarter() {
@@ -94,7 +94,7 @@ void loop () {
   }
   commands_update();
   mb->resume();
-  ia.update();
+  ia->update();
 }
 void motionLoop() {
   mb->update();

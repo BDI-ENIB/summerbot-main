@@ -4,16 +4,16 @@ IA::IA(MotionBase *mb, Claw *claw):
   protocols_{},
   protocolCount_{},
   selectedProtocolId_{},
-  mb_{mb},
-  claw_{claw},
+  mb{mb},
+  claw{claw},
   maxFlagIndex{0} {}
 
 IA::IA(MotionBase *mb, Claw *claw, Protocol *protocols[], unsigned short int protocolCount):
   protocols_{},
   protocolCount_{protocolCount},
   selectedProtocolId_{},
-  mb_{mb},
-  claw_{claw},
+  mb{mb},
+  claw{claw},
   maxFlagIndex{0} {
   for (unsigned short int i = 0; i < protocolCount; ++i) {
     protocols_[i] = protocols[i];
@@ -37,7 +37,7 @@ void IA::autoselectProtocol() {
 }
 
 void IA::update() {
-  if (!mb_->isBusy() && !claw_->isBusy()) {
+  if (!mb->isBusy() && !claw->isBusy()) {
 
     if (protocols_[selectedProtocolId_]->isCompleted()) {
       autoselectProtocol();
@@ -66,4 +66,3 @@ short int IA::getFlag(String flagName) { //return an unsigned char, or -1 if not
 #endif
   return -1;
 }
-

@@ -1,5 +1,7 @@
 #include "cube_unloading_protocol.hpp"
-#include "robot.h"
+#include "../../robot.h"
+#include "../../ia.hpp"
+#include "../../nodes.hpp"
 
 void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this protocol
   if(state >=5||unloadingZone>2){
@@ -7,9 +9,9 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     state = 0;
     return;
   }
-  switch state{
+  switch(state){
     case 1:
-    ia->mb->moveto(UnloadingZones[state].getX(), UnloadingZones[state].getY(ia->getFlag("isGreenSide")), PI);
+    ia->mb->moveTo(unloadingZones[unloadingZone].getX(), unloadingZones[unloadingZone].getY(ia->getFlag("isGreenSide")), PI);
     break;
     case 2:
     ia->mb->translate(180-ROBOT_1_W_DEPLOYED);
@@ -28,7 +30,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
 }
 
 boolean CubeUnloadingProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return unloadingZone>2
+  return unloadingZone>2;
 }
 
 unsigned short int CubeUnloadingProtocol::getPriority(IA *ia){
