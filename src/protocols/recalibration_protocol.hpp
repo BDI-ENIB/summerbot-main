@@ -1,5 +1,5 @@
-#ifndef RECAL_PROTOCOL
-#define RECAL_PROTOCOL 1
+#ifndef RECALL_PROTOCOL
+#define RECALL_PROTOCOL 1
 
 #include "../../protocol.hpp"
 class IA;
