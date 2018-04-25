@@ -4,9 +4,11 @@
 #include "../../nodes.hpp"
 
 void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this protocol
-  if(state >=5||unloadingZone>2){
+  if(state >=6){
     unloadingZone++;
     state = 0;
+  }
+  if(unloadingZone>2){
     return;
   }
   switch(state){
@@ -21,6 +23,9 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     break;
     case 4:
     ia->mb->translate(ROBOT_1_W_DEPLOYED-180);
+    break;
+    case 5:
+    ia->mb->moveTo(G_RoadMain.getX(),G_RoadMain.getY(ia->getFlag("isGreenSide")), PI);
     break;
     default:
     // Anomality
