@@ -4,7 +4,7 @@
 #include "../../nodes.hpp"
 
 void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this protocol
-  if(state >=6){
+  if(state >=7){
     unloadingZone++;
     state = 0;
   }
@@ -13,19 +13,21 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
   }
   switch(state){
     case 1:
+    ia->mb->moveTo(G_RoadMain.getX(), G_RoadMain.getY(ia->getFlag("isGreenSide")), PI);
+    case 2:
     ia->mb->moveTo(unloadingZones[unloadingZone].getX(), unloadingZones[unloadingZone].getY(ia->getFlag("isGreenSide")), PI);
     break;
-    case 2:
+    case 3:
     ia->mb->translate(180-ROBOT_1_W_DEPLOYED);
     break;
-    case 3:
+    case 4:
     ia->claw->unload();
     break;
-    case 4:
+    case 5:
     ia->mb->translate(ROBOT_1_W_DEPLOYED-180);
     break;
-    case 5:
-    ia->mb->moveTo(G_RoadMain.getX(),G_RoadMain.getY(ia->getFlag("isGreenSide")), PI);
+    case 6:
+    ia->mb->moveTo(G_RoadMain.getX(),G_RoadMain.getY(ia->getFlag("isGreenSide")), 0);
     break;
     default:
     // Anomality
