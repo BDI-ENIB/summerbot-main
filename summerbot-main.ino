@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+#include "src/protocols/cube_unloading_protocol.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-sensormanager/SensorManager.hpp"
@@ -64,6 +65,7 @@ void setup () {
 
   //IA
   ia = new IA(mb, claw);
+  ia->addProtocol(new CubeUnloadingProtocol());
   ia->createFlag("isTheCubeLoaded", 0);
   ia->createFlag("side", digitalRead(SIDE));
 }

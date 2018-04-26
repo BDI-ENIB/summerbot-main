@@ -6,7 +6,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
 }
 
 boolean PanelActivationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-
+    return true;
 }
 
 unsigned short int PanelActivationProtocol::getPriority(IA *ia){
