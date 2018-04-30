@@ -1,6 +1,6 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
-bool globalSide = false;
+volatile extern bool globalSide;
 //cubes
 #define PLUS_1_X 1190
 #define PLUS_1_Y (globalSide?300:2700)

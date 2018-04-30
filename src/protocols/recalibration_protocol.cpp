@@ -5,7 +5,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
 
 }
 
-boolean RecalibrationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
+bool RecalibrationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
 
 }
 

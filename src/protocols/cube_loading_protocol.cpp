@@ -25,7 +25,7 @@ void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this prot
     ia->mb->translate(ROBOT_1_W_DEPLOYED-180);
     break;
     case 5:
-    ia->mb->moveTo(G_RoadMain.getX(),G_RoadMain.getY(ia->getFlag("isGreenSide")), 0);
+    ia->mb->moveTo(g_roadMain.getX(),g_roadMain.getY(ia->getFlag("isGreenSide")), 0);
     break;
     default:
     // Anomality

@@ -13,7 +13,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
   }
   switch(state){
     case 1:
-    ia->mb->moveTo(G_RoadMain.getX(), G_RoadMain.getY(ia->getFlag("isGreenSide")), PI);
+    ia->mb->moveTo(g_roadMain.getX(), g_roadMain.getY(ia->getFlag("isGreenSide")), PI);
     case 2:
     ia->mb->moveTo(unloadingZones[unloadingZone].getX(), unloadingZones[unloadingZone].getY(ia->getFlag("isGreenSide")), PI);
     break;
@@ -27,7 +27,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(ROBOT_1_W_DEPLOYED-180);
     break;
     case 6:
-    ia->mb->moveTo(G_RoadMain.getX(),G_RoadMain.getY(ia->getFlag("isGreenSide")), 0);
+    ia->mb->moveTo(g_roadMain.getX(),g_roadMain.getY(ia->getFlag("isGreenSide")), 0);
     break;
     default:
     // Anomality
