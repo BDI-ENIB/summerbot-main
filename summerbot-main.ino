@@ -14,6 +14,7 @@
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
 #define MATCHLENGHT 100000 //millisec
+#define SIMULATOR true
 
 IntervalTimer motionTimer;
 long startTime;
@@ -60,14 +61,22 @@ void setup () {
   mb->pause();
 
   //Starter
+#if !SIMULATOR
   delayStarter();
+#endif
+#if SIMULATOR
+  remoteStarter();
+#endif
   startTime = millis();
+
 
   //IA
   ia = new IA(mb, claw);
   ia->addProtocol(new CubeUnloadingProtocol());
   ia->createFlag("isTheCubeLoaded", 0);
-  ia->createFlag("side", digitalRead(SIDE));
+  globalSide = digitalRead(SIDE);
+  ia->createFlag("side", globalSide);
+  mb->setPosition(START_1_X,START_1_Y,START_1_A);
 }
 
 void delayStarter() {
@@ -87,10 +96,15 @@ void delayStarter() {
 
 void loop () {
   if (millis() - startTime >= MATCHLENGHT ||
-      sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-      sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-      sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-      sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_BACKWARD)) {
+      (
+        (
+          sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+          sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+          sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
+          sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_BACKWARD)
+        )&&!SIMULATOR
+      )
+    ) {
     mb->pause();
     return;
   }
