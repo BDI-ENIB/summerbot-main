@@ -3,7 +3,6 @@ SerialCommand sCmd;
 long t = millis();
 bool sendPos = false;
 bool simStart=false;
-bool forcedSide =false;
 void commands_init() {
   sCmd.addCommand("START", start_command);
   sCmd.addCommand("GOTO", goto_command);
@@ -19,7 +18,7 @@ void commands_init() {
 }
 void commands_update() {
   sCmd.readSerial();
-  if (millis() - t > 100) {
+  if (millis() - t > 300) {
     if (sendPos) {
       double x,y,a;
       mb->getRealPos(&x,&y,&a);
@@ -64,7 +63,8 @@ void getside_command() {
 }
 void setside_command(){
   forcedSide=true;
-  globalSide = String(sCmd.next()).toFloat();
-  ia->createFlag("side", globalSide);
+  globalSide = (bool)String(sCmd.next()).toInt();
+  ia->setFlag("side", globalSide);
   mb->setPosition(START_1_X,START_1_Y,START_1_A);
+  getside_command();
 }

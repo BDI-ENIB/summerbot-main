@@ -13,7 +13,7 @@ class Node {
       return x;
     }
     int getY(bool isGreenSide){
-      return isGreenSide?3000-y:y;
+      return isGreenSide?y:3000-y;
     }
     Node(int x, int y): x{x}, y{y} {}
 };

@@ -19,7 +19,7 @@ class IA {
   private:
     Protocol *protocols_[MAX_PROTOCOL_NUMBER];
     unsigned short int protocolCount_;
-    unsigned short int selectedProtocolId_;
+    short int selectedProtocolId_=-1;
     void autoselectProtocol();
     typedef struct {
       String id;
@@ -27,6 +27,7 @@ class IA {
     } DictionnaryEntry;
     DictionnaryEntry dictionnary[MAX_FLAG_NUMBER];
     unsigned char maxFlagIndex;
+    bool active = false;
 
   public:
     MotionBase *mb;
@@ -36,7 +37,9 @@ class IA {
     IA(MotionBase *mb, Claw *claw);
     void addProtocol(Protocol *protocol);
     void update();
-    void createFlag(String flagName, unsigned char value);
+    void setFlag(String flagName, unsigned char value);
     short int getFlag(String flagName); //return an unsigned char, or -1 if not found
+    void activate();
+    void deactivate();
 };
 #endif

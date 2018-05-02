@@ -1,9 +1,9 @@
 #include "ia.hpp"
+#include <Arduino.h>
 
 IA::IA(MotionBase *mb, Claw *claw):
   protocols_{},
   protocolCount_{},
-  selectedProtocolId_{},
   mb{mb},
   claw{claw},
   maxFlagIndex{0} {}
@@ -11,7 +11,6 @@ IA::IA(MotionBase *mb, Claw *claw):
 IA::IA(MotionBase *mb, Claw *claw, Protocol *protocols[], unsigned short int protocolCount):
   protocols_{},
   protocolCount_{protocolCount},
-  selectedProtocolId_{},
   mb{mb},
   claw{claw},
   maxFlagIndex{0} {
@@ -25,6 +24,7 @@ void IA::addProtocol(Protocol *protocol) {
 }
 
 void IA::autoselectProtocol() {
+  selectedProtocolId_=-1;
   unsigned short int maxPriority = 0;
   for (unsigned short int selectedProtocolId = 0; selectedProtocolId < protocolCount_; ++selectedProtocolId) {
     if (!protocols_[selectedProtocolId]->isCompleted()) {
@@ -37,17 +37,23 @@ void IA::autoselectProtocol() {
 }
 
 void IA::update() {
+  if(!active)return;
   if (!mb->isBusy() && !claw->isBusy()) {
-
-    if (protocols_[selectedProtocolId_]->isCompleted()) {
+    if (selectedProtocolId_==-1||protocols_[selectedProtocolId_]->isCompleted()) {
       autoselectProtocol();
     }
-    protocols_[selectedProtocolId_]->update(this);
+    if(selectedProtocolId_!=-1)protocols_[selectedProtocolId_]->update(this);
   }
 }
 
 
-void IA::createFlag(String flagName, unsigned char value) {
+void IA::setFlag(String flagName, unsigned char value) {
+  for (unsigned int i=0;i<=maxFlagIndex;i++) {
+    if (dictionnary[i].id == flagName) {
+      dictionnary[i].value = value;
+      return;
+    }
+  }
   dictionnary[++maxFlagIndex] = {flagName, value};
 }
 short int IA::getFlag(String flagName) { //return an unsigned char, or -1 if not found
@@ -65,4 +71,12 @@ short int IA::getFlag(String flagName) { //return an unsigned char, or -1 if not
 
 #endif
   return -1;
+}
+void IA::activate(){
+  active=true;
+  Serial.println("LOG activated_AI");
+}
+void IA::deactivate(){
+  active=false;
+  Serial.println("LOG deactivated_AI");
 }

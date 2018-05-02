@@ -6,9 +6,9 @@ Node g_cross2=Node(990,300);
 Node g_cross3=Node(1500,900);
 
 Node unloadingZones[]={
-  Node(180,500),
-  Node(180,720),
-  Node(180,830)};
+  Node(180+60,500),
+  Node(180+60,720),
+  Node(180+60,830)};
 Node RoadCubeLoadingZone[]={
   Node(540,610),
   Node(1190,610),
