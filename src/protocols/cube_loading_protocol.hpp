@@ -13,7 +13,7 @@ class CubeLoadingProtocol: public Protocol {
   private:
     unsigned char loadingZone = 0;
     unsigned char state = 0;
-    unsigned short int priority;
+    unsigned short priority;
 };
 
 #endif

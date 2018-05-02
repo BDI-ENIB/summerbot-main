@@ -13,6 +13,7 @@ class CubeUnloadingProtocol: public Protocol {
   private:
     unsigned char unloadingZone = 0;
     unsigned char state = 0;
+    unsigned short priority;
 };
 
 #endif
