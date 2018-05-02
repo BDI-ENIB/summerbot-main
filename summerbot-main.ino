@@ -61,12 +61,12 @@ void setup () {
   commands_init();
   //AI
   ia = new IA(mb, claw);
-  ia->addProtocol(new CubeUnloadingProtocol(0));
-  ia->addProtocol(new CubeUnloadingProtocol(1));
-  ia->addProtocol(new CubeUnloadingProtocol(2));
-  ia->addProtocol(new CubeLoadingProtocol(0));
-  ia->addProtocol(new CubeLoadingProtocol(1));
-  ia->addProtocol(new CubeLoadingProtocol(2));
+  ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
+  ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_VERY_HIGH));
+  ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
+  ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
+  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_HIGH));
+  ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH));
   ia->setFlag("towerLoaded", 0);
 
   //MotionBase

@@ -43,5 +43,5 @@ boolean CubeUnloadingProtocol::isCompleted(){ //wether the last action of this p
 }
 
 unsigned short int CubeUnloadingProtocol::getPriority(IA *ia){
-  return (ia->getFlag("towerLoaded")==1)?PRIORITY_HIGH:0;
+  return (ia->getFlag("towerLoaded")==1)?priority:0;
 }

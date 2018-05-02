@@ -6,7 +6,7 @@ class IA;
 
 class CubeUnloadingProtocol: public Protocol {
   public:
-    CubeUnloadingProtocol(int uz):unloadingZone{uz} {};
+    CubeUnloadingProtocol(unsigned char uz,unsigned short p):unloadingZone{uz}, priority{p} {};
     void update(IA *ia) override; //execute the next action of this protocol
     bool isCompleted() override; //wether the last action of this protocol have already been executed or not
     unsigned short int getPriority(IA *ia) override;
