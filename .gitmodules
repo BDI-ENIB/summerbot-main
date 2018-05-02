@@ -11,5 +11,5 @@
 	path = src/summerbot-pathfinder
 	url = https://github.com/arenibProjects/summerbot-pathfinder.git
 [submodule "summerbot-screen"]
-	path = summerbot-screen
+	path = src/summerbot-screen
 	url = https://github.com/arenibProjects/summerbot-screen.git
