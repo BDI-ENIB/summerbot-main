@@ -3,6 +3,7 @@
 
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-claw/claw.hpp"
+#include "src/summerbot-screen/Screen.h"
 #include "protocol.hpp"
 
 #define MAX_FLAG_NUMBER 20
@@ -32,9 +33,10 @@ class IA {
   public:
     MotionBase *mb;
     Claw *claw;
+    Screen *screen;
 
-    IA(MotionBase *mb, Claw *claw, Protocol *protocols[], short unsigned int protocolCount);
-    IA(MotionBase *mb, Claw *claw);
+    IA(MotionBase *mb, Claw *claw, Screen *screen, Protocol *protocols[], short unsigned int protocolCount);
+    IA(MotionBase *mb, Claw *claw, Screen *screen);
     void addProtocol(Protocol *protocol);
     void update();
     void setFlag(String flagName, unsigned char value);

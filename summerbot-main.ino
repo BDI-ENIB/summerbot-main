@@ -5,6 +5,7 @@
 #include "src/protocols/cube_loading_protocol.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
+#include "src/summerbot-screen/Screen.h"
 #include "src/summerbot-sensormanager/SensorManager.hpp"
 #include "pinout.h"
 #include "terrain.h"
@@ -27,6 +28,8 @@ Servo tmpClampL;
 Servo tmpClampR;
 Claw *claw;
 
+Screen *screen;
+
 IA *ia;
 
 SensorManager* sensorManager;
@@ -37,6 +40,9 @@ void setup () {
 
   pinMode(SIDE, INPUT);
   pinMode(STARTER, INPUT_PULLUP);
+
+  //screen
+  screen = new Screen;
 
   //Claw
   tmplift.attach(9);
@@ -60,7 +66,7 @@ void setup () {
   Serial.begin(250000);
   commands_init();
   //AI
-  ia = new IA(mb, claw);
+  ia = new IA(mb, claw, screen);
   ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));

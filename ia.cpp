@@ -1,18 +1,20 @@
 #include "ia.hpp"
 #include <Arduino.h>
 
-IA::IA(MotionBase *mb, Claw *claw):
+IA::IA(MotionBase *mb, Claw *claw, Screen *screen):
   protocols_{},
   protocolCount_{},
   mb{mb},
   claw{claw},
+  screen{screen},
   maxFlagIndex{0} {}
 
-IA::IA(MotionBase *mb, Claw *claw, Protocol *protocols[], unsigned short int protocolCount):
+IA::IA(MotionBase *mb, Claw *claw, Screen *screen, Protocol *protocols[], unsigned short int protocolCount):
   protocols_{},
   protocolCount_{protocolCount},
   mb{mb},
   claw{claw},
+  screen{screen},
   maxFlagIndex{0} {
   for (unsigned short int i = 0; i < protocolCount; ++i) {
     protocols_[i] = protocols[i];
