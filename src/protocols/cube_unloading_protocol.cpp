@@ -8,7 +8,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
   switch(state){
     case 0:
     ia->mb->moveTo(g_roadMain.getX(), g_roadMain.getY(ia->getFlag("side")), PI);
-    Serial.println("LOG Starting_CubeUnloadingProtocol #"+unloadingZone);
+    Serial.println("LOG Starting_CubeUnloadingProtocol_#"+unloadingZone);
     break;
     case 1:
     ia->mb->moveTo(unloadingZones[unloadingZone].getX(), unloadingZones[unloadingZone].getY(ia->getFlag("side")), PI);
