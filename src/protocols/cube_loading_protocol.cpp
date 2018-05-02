@@ -9,6 +9,7 @@ void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this prot
     case 0:
     ia->mb->moveTo(RoadCubeLoadingZone[loadingZone].getX(), RoadCubeLoadingZone[loadingZone].getY(ia->getFlag("side")), PI);
     ia->setFlag("towerLoaded",1);
+    Serial.println("LOG Starting_CubeLoadingProtocol #"+loadingZone);
     break;
     default:
     // Anomality
