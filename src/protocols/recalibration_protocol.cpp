@@ -39,7 +39,13 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(100);
     break;
     case 9:
-    ia->mb->moveTo(1540,610,PI);
+    ia->rotate(-PI/2);
+    break;
+    case 10:
+    ia->mb->translate(400);
+    break;
+    case 11:
+    ia->mb->setPosition(1500,610,PI/2);
     break;
     default:
     //somthing bad occured
@@ -49,7 +55,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
 }
 
 bool RecalibrationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return state>9;
+  return state>11;
 }
 
 unsigned short int RecalibrationProtocol::getPriority(IA *ia){
