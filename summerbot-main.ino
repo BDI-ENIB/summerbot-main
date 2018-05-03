@@ -3,6 +3,7 @@
 
 #include "src/protocols/cube_unloading_protocol.hpp"
 #include "src/protocols/cube_loading_protocol.hpp"
+#include "src/protocols/recalibration_protocol.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-screen/Screen.h"
@@ -71,6 +72,7 @@ void setup () {
   ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
+  ia->addProtocol(new RecalibrationProtocol());
   ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
   ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_MEDIUM));
   ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
