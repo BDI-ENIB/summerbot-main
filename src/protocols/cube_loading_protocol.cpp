@@ -34,6 +34,11 @@ void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this prot
     ia->claw->load();
     Serial.println("LOG loading_cube_3");
     break;
+    case 7:
+    ia->mb->translate(-ia->mb->getY()+610);
+    if (isRecalibrationRequested){
+      ia->setFlag("recalibrationNeeded", 1);
+    }
     default:
     // Anomality
     break;

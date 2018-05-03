@@ -72,8 +72,8 @@ void setup () {
   ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
-  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_HIGH));
-  ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH));
+  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_MEDIUM));
+  ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
   ia->setFlag("towerLoaded", 0);
 
   //MotionBase
