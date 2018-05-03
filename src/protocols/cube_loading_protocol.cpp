@@ -47,7 +47,7 @@ void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this prot
 }
 
 boolean CubeLoadingProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return state>6;
+  return state>7;
 }
 
 unsigned short int CubeLoadingProtocol::getPriority(IA *ia){
