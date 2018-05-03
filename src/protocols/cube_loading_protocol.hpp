@@ -14,7 +14,7 @@ class CubeLoadingProtocol: public Protocol {
     unsigned char loadingZone = 0;
     unsigned char state = 0;
     unsigned short priority;
-    bool isRecalibrationRequested = false;
+    bool isRecalibrationRequested;
 };
 
 #endif
