@@ -14,7 +14,7 @@ Node RoadCubeLoadingZone[]={
   Node(1190,610),
   Node(1500,610)};
 Node RealCubeLoadingZone[]={
-  Node(540,850-ROBOT_1_W_DEPLOYED),
-  Node(1190,280+44+ROBOT_1_W_DEPLOYED),
-  Node(1500,1100-ROBOT_1_W_DEPLOYED)
+  Node(540,850-ROBOT_1_W/2,PI/2),
+  Node(1190,280+44+ROBOT_1_W/2,-PI/2),
+  Node(1500,1100-ROBOT_1_W/2,PI/2)
 };

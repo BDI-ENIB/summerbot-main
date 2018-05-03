@@ -7,7 +7,7 @@
 void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this protocol
   switch(state){
     case 0:
-    ia->mb->moveTo(g_roadMain.getX(), g_roadMain.getY(ia->getFlag("side")), PI);
+    ia->mb->moveTo(g_roadMain.getX(), g_roadMain.getY(ia->getFlag("side")));
     Serial.println("LOG Starting_CubeUnloadingProtocol");
     break;
     case 1:
@@ -28,7 +28,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     Serial.println("LOG back");
     break;
     case 5:
-    ia->mb->moveTo(g_roadMain.getX(),g_roadMain.getY(ia->getFlag("side")), 0);
+    ia->mb->moveTo(g_roadMain.getX(),g_roadMain.getY(ia->getFlag("side")));
     Serial.println("LOG back_to_base");
     break;
     default:

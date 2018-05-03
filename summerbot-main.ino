@@ -35,6 +35,7 @@ IA *ia;
 SensorManager* sensorManager;
 
 bool forcedSide =false;
+bool blocked = false;
 
 void setup () {
 
@@ -42,7 +43,7 @@ void setup () {
   pinMode(STARTER, INPUT_PULLUP);
 
   //screen
-  screen = new Screen;
+  //screen = new Screen;
 
   //Claw
   tmplift.attach(9);
@@ -123,11 +124,16 @@ void loop () {
         )&&!SIMULATOR
       )
     ) {
-    mb->pause();
+      if(!blocked){
+        mb->pause();
+        Serial.println("LOG robot_blocked");
+      }
+      blocked=true;
     return;
   }
   commands_update();
   mb->resume();
+  blocked=false;
   claw->update();
   ia->update();
 }

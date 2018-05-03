@@ -8,6 +8,7 @@
 class Node {
   private:
     int x, y;
+    double a;
   public:
     int getX(){
       return x;
@@ -15,7 +16,11 @@ class Node {
     int getY(bool isGreenSide){
       return isGreenSide?y:3000-y;
     }
-    Node(int x, int y): x{x}, y{y} {}
+    double getA(bool isGreenSide){
+      return isGreenSide?a:-a;
+    }
+    Node(int x, int y): x{x}, y{y}, a{0} {}
+    Node(int x, int y,double a): x{x}, y{y}, a{a} {}
 };
 
 extern Node g_roadMain;

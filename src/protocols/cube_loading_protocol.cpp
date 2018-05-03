@@ -7,9 +7,32 @@
 void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this protocol
   switch(state){
     case 0:
-    ia->mb->moveTo(RoadCubeLoadingZone[loadingZone].getX(), RoadCubeLoadingZone[loadingZone].getY(ia->getFlag("side")), PI);
-    ia->setFlag("towerLoaded",1);
+    ia->mb->moveTo(RoadCubeLoadingZone[loadingZone].getX(), RoadCubeLoadingZone[loadingZone].getY(ia->getFlag("side")));
     Serial.println("LOG Starting_CubeLoadingProtocol_#"+String(loadingZone));
+    break;
+    case 1:
+    ia->mb->moveTo(RealCubeLoadingZone[loadingZone].getX(), RealCubeLoadingZone[loadingZone].getY(ia->getFlag("side")), RealCubeLoadingZone[loadingZone].getA(ia->getFlag("side")));
+    Serial.println("LOG Going_to_first_cube");
+    break;
+    case 2:
+    ia->claw->load();
+    ia->setFlag("towerLoaded",1);
+    Serial.println("LOG loading_cube_1");
+    break;
+    case 3:
+    ia->mb->translate(60);
+    Serial.println("LOG going_to_cube_2");
+    break;
+    case 4:
+    ia->claw->load();
+    Serial.println("LOG loading_cube_2");
+    case 5:
+    ia->mb->translate(60);
+    Serial.println("LOG going_to_cube_3");
+    break;
+    case 6:
+    ia->claw->load();
+    Serial.println("LOG loading_cube_3");
     break;
     default:
     // Anomality
@@ -19,7 +42,7 @@ void CubeLoadingProtocol::update(IA *ia){ //execute the next action of this prot
 }
 
 boolean CubeLoadingProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return state>0;
+  return state>6;
 }
 
 unsigned short int CubeLoadingProtocol::getPriority(IA *ia){
