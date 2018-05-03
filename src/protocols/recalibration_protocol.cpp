@@ -22,18 +22,24 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(210);
     break;
     case 4:
-    ia->mb->rotate(-PI/2);
+    ia->mb->rotate(PI/2);
     break;
     case 5:
-    ia->mb->translate(490-ROBOT_1_W);
+    ia->mb->translate(-490+ROBOT_1_W);
     break;
     case 6:
-    ia->mb->translateRPM(10, 60);
+    ia->mb->translateRPM(-10, 60);
     break;
     case 7:
     if(!digitalRead(DIST_BACK) && !SIMULATOR){
       state-=2;
     }
+    break;
+    case 8:
+    ia->mb->translate(100);
+    break;
+    case 9:
+    ia->mb->moveTo(1540,610,PI);
     break;
     default:
     //somthing bad occured
@@ -43,7 +49,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
 }
 
 bool RecalibrationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return state>7;
+  return state>9;
 }
 
 unsigned short int RecalibrationProtocol::getPriority(IA *ia){
