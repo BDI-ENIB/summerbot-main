@@ -39,7 +39,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(100);
     break;
     case 9:
-    ia->rotate(-PI/2);
+    ia->mb->rotate(-PI/2);
     break;
     case 10:
     ia->mb->translate(400);
