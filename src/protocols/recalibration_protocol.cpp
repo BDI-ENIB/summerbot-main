@@ -14,12 +14,12 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translateRPM(-10, 60);
     break;
     case 2:
-    if(!digitalRead(DIST_BACK) && !SIMULATOR){
+    if(!digitalRead(DIST_BACK) && ia->getFlag("simulator")!=1){
       state-=2;
     }
     break;
     case 3:
-    ia->mb->translate(210);
+    ia->mb->translate(210-ROBOT_1_W);
     break;
     case 4:
     ia->mb->rotate(PI/2);
@@ -31,7 +31,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translateRPM(-10, 60);
     break;
     case 7:
-    if(!digitalRead(DIST_BACK) && !SIMULATOR){
+    if(!digitalRead(DIST_BACK) && ia->getFlag("simulator")!=1){
       state-=2;
     }
     break;
@@ -45,7 +45,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(400);
     break;
     case 11:
-    ia->mb->setPosition(1500,610,PI/2);
+    ia->mb->setPosition(1900-ROBOT_1_W,610,PI/2);
     break;
     default:
     //somthing bad occured

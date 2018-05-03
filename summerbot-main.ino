@@ -77,19 +77,22 @@ void setup () {
   ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_MEDIUM));
   ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
   ia->setFlag("towerLoaded", 0);
+  ia->setFlag("simulator", (SIMULATOR?1:0));
 
   //MotionBase
   mb->pause();
 
-  //Starter
-#if !SIMULATOR
-  delayStarter();
-#endif
-#if SIMULATOR
-  remoteStarter();
-#endif
+  //Starter & Simulator
+  #if !SIMULATOR
+    delayStarter();
+  #endif
+  #if SIMULATOR
+    remoteStarter();
+  #endif
+
   //start time
   startTime = millis();
+
   //side
   if(!forcedSide){
     globalSide = digitalRead(SIDE);

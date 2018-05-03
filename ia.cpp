@@ -30,12 +30,14 @@ void IA::autoselectProtocol() {
   unsigned short int maxPriority = 0;
   for (unsigned short int selectedProtocolId = 0; selectedProtocolId < protocolCount_; ++selectedProtocolId) {
     if (!protocols_[selectedProtocolId]->isCompleted()) {
-      if (protocols_[selectedProtocolId]->getPriority(this) > maxPriority) {
+      if (protocols_[selectedProtocolId]->getPriority(this) > maxPriority
+            && protocols_[selectedProtocolId]->getPriority(this)>PRIORITY_NULL) {
         maxPriority = protocols_[selectedProtocolId]->getPriority(this);
         selectedProtocolId_ = selectedProtocolId;
       }
     }
   }
+
 }
 
 void IA::update() {
