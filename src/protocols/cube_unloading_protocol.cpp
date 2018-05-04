@@ -15,7 +15,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     Serial.println("LOG going_to_unload_zonel_#"+String(unloadingZone));
     break;
     case 2:
-    ia->mb->translate(ROBOT_1_W_DEPLOYED-180);
+    ia->mb->translate(60); // a cube should be 58±
     Serial.println("LOG forward");
     break;
     case 3:
@@ -24,7 +24,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     Serial.println("LOG empty");
     break;
     case 4:
-    ia->mb->translate(180-ROBOT_1_W_DEPLOYED);
+    ia->mb->translate(-60);
     Serial.println("LOG back");
     break;
     case 5:
