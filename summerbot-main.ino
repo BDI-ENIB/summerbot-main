@@ -78,6 +78,7 @@ void setup () {
   ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
+  ia->setFlag("recalibrationNeeded", 0);
 
   //MotionBase
   mb->pause();

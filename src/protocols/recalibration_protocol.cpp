@@ -8,24 +8,25 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
 
   switch (state){
     case 0:
-    ia->mb->translate(-ia->mb->getY()+10+ROBOT_1_W);
+    ia->setFlag("recalibrationNeeded",NULL);
+    ia->mb->translate(-abs((ia->getFlag("side")==0?3000-ia->mb->getY():ia->mb->getY())-ROBOT_1_W/2-10));
     break;
     case 1:
     ia->mb->translateRPM(-10, 60);
     break;
     case 2:
-    if(!digitalRead(DIST_BACK) && ia->getFlag("simulator")!=1){
+    if(!digitalRead(DIST_BACK) && ia->getFlag("simulator")==0){
       state-=2;
     }
     break;
     case 3:
-    ia->mb->translate(210-ROBOT_1_W);
+    ia->mb->translate(210-ROBOT_1_W/2);
     break;
     case 4:
     ia->mb->rotate(PI/2);
     break;
     case 5:
-    ia->mb->translate(-490+ROBOT_1_W);
+    ia->mb->translate(-490+ROBOT_1_W/2);
     break;
     case 6:
     ia->mb->translateRPM(-10, 60);
@@ -45,7 +46,7 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translate(400);
     break;
     case 11:
-    ia->mb->setPosition(1900-ROBOT_1_W,610,PI/2);
+    ia->mb->setPosition(1900-ROBOT_1_W/2,(ia->getFlag("side")?610:2390),PI/2);
     break;
     default:
     //somthing bad occured
@@ -59,8 +60,7 @@ bool RecalibrationProtocol::isCompleted(){ //wether the last action of this prot
 }
 
 unsigned short int RecalibrationProtocol::getPriority(IA *ia){
-  if(ia->getFlag("recalibrationNeeded")==1){
-    ia->setFlag("recalibrationNeeded",0);
+  if(ia->getFlag("recalibrationNeeded")!=NULL){
     return PRIORITY_HIGHEST;
   }
   return PRIORITY_NULL;
