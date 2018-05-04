@@ -25,8 +25,12 @@
 #define BTN3 36
 #define BTN5 35
 #define SIDE 39
+/*
 #define DIST_FRONT 27
 #define DIST_BACK 28
+*/
+#define DIST_BACK_RIGHT 27
+#define DIST_BACK_LEFT 28
 #define STARTER 6
 //eink
 #define EINK_BUSY 7
@@ -43,5 +47,3 @@
 #define L_STEP 30
 #define R_DIR 31
 #define L_DIR 32
-
-
