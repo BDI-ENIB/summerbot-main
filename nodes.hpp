@@ -24,6 +24,7 @@ class Node {
 };
 
 extern Node g_roadMain;
+extern Node g_roadButton;
 extern Node g_start;
 extern Node g_cross1;
 extern Node g_cross2;
