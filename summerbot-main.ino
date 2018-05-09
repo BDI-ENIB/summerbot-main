@@ -71,22 +71,12 @@ void setup () {
   //Serial
   Serial.begin(250000);
   commands_init();
+
   //AI
   ia = new IA(mb, claw, screen);
-  /*
-  ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
-  ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_LOW));
-  ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
-  ia->addProtocol(new RecalibrationProtocol());
-  ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST));
-  ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
-  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_VERY_LOW));
-  ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
-  */
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1));
-  //ia->addProtocol(new RecalibrationProtocol(PRIORITY_HIGH, false));
   //ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
@@ -95,8 +85,6 @@ void setup () {
   ia->setFlag("cross1SuccessfullyCleared", 0);
   ia->setFlag("cross2SuccessfullyCleared", 0);
 
-  //MotionBase
-  mb->pause();
 
   //Starter & Simulator
   #if !SIMULATOR
@@ -108,6 +96,12 @@ void setup () {
 
   //start time
   startTime = millis();
+
+  { // Init. hardcoded move, the AI will wait for those move to be finished before starting
+    mb->pause();
+    mb->translate(200);
+    mb->translate(-200);
+  }
 
   //side
   if(!forcedSide){

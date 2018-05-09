@@ -7,8 +7,8 @@ Node g_cross2=Node(990,300);
 Node g_cross3=Node(1500,900);
 
 Node unloadingZones[]={
-  Node(180+60,480),
-  Node(180+60,720),
+  Node(180+60,490),
+  Node(180+60,670),
   Node(180+60,850)
 };
 Node RoadCubeLoadingZone[]={
@@ -27,5 +27,5 @@ Node(1540,610,-PI/2)
 };
 Node RealBuldozerCubeLoadingZone[]={
 Node(840,850,PI),
-Node(1540,210,2*PI/3)
+Node(1540,200,9*PI/10)
 };
