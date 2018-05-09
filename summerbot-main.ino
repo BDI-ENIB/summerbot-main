@@ -10,6 +10,7 @@
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-screen/Screen.h"
+#include "src/summerbot-screen/IconsId.h"
 #include "src/summerbot-sensormanager/SensorManager.hpp"
 #include "pinout.h"
 #include "terrain.h"
