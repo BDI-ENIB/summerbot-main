@@ -20,6 +20,7 @@
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
 #define MATCHLENGHT 100000 //millisec
 #define SIMULATOR true
+#define TARGET_SCORE 40
 
 IntervalTimer motionTimer;
 long startTime;
@@ -48,7 +49,11 @@ void setup () {
   pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
 
   //screen
-  //screen = new Screen;
+  screen = new Screen;
+  screen->showInitFrame(TARGET_SCORE);
+  while(screen->isBusy()) { //waiting for the screen to update
+    delay(100);
+  }
 
   //Claw
   tmplift.attach(9);
@@ -119,13 +124,16 @@ void delayStarter() {
     tmp = (double)(tmp * 99.0 + digitalRead(STARTER)) / 100.0;
     if (!hasStarterBeenInserted && tmp >= 0.99) {
       hasStarterBeenInserted = true;
+      screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
+      screen->clearIcon(ARMED);
       return;
     }
     delay(1);
     commands_update();
   }
+
 }
 
 void loop () {
