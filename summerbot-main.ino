@@ -6,6 +6,7 @@
 #include "src/protocols/recalibration_protocol.hpp"
 #include "src/protocols/panel_activation_protocol.hpp"
 #include "src/protocols/buldozer_cube_loading_protocol.hpp"
+#include "src/protocols/bee_activation_protocol.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-screen/Screen.h"
