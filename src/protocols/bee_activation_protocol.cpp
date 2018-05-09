@@ -16,19 +16,14 @@ void BeeActivationProtocol::update(IA *ia){ //execute the next action of this pr
     Serial.println("LOG Starting_BeeSplatProtocol_(bugsplat...understood?_loool)");
     break;
     case 2:
-    if(ia->getFlag("side")){
-      servo->attach(SERVO5);
-    }else{
-      servo->attach(SERVO6);
-    }
-    servo->write(servo->read()+(ia->getFlag("side")?1:-1)*90);
+    //
     break;
     case 3:
     ia->mb->translate(570-ROBOT_1_W-50);
     Serial.println("LOG splating_the_bee..._hopefully_xD");
     break;
     case 4:
-    servo->write(servo->read()-(ia->getFlag("side")?1:-1)*90);
+    //
     break;
     default:
     // Abnormal bee-havior
