@@ -82,7 +82,7 @@ void setup () {
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1));
-  //ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
+  ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
   ia->setFlag("recalibrationNeeded", 0);
