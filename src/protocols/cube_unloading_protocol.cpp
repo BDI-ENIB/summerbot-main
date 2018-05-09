@@ -30,6 +30,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
     case 5:
     ia->mb->moveTo(g_roadMain.getX(),g_roadMain.getY(ia->getFlag("side")));
     Serial.println("LOG back_to_base");
+    ia->setFlag("cross"+(String)unloadingZone+"SuccessfullyCleared", 1);
     break;
     default:
     // Anomality

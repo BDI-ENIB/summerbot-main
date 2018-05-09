@@ -41,7 +41,7 @@ bool blocked = false;
 
 void setup () {
 
-  pinMode(SIDE, INPUT);
+  pinMode(SIDE, INPUT_PULLUP);
   pinMode(STARTER, INPUT_PULLUP);
 
   //screen
@@ -71,16 +71,19 @@ void setup () {
   //AI
   ia = new IA(mb, claw, screen);
   ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
-  ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_VERY_HIGH));
+  ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_LOW));
   ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
   ia->addProtocol(new RecalibrationProtocol());
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST));
   ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
-  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_MEDIUM));
+  ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_VERY_LOW));
   ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
   ia->setFlag("recalibrationNeeded", 0);
+  ia->setFlag("cross0SuccessfullyCleared", 0);
+  ia->setFlag("cross1SuccessfullyCleared", 0);
+  ia->setFlag("cross2SuccessfullyCleared", 0);
 
   //MotionBase
   mb->pause();

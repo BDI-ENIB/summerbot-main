@@ -11,8 +11,8 @@ class PanelActivationProtocol: public Protocol {
     bool isCompleted() override; //wether the last action of this protocol have already been executed or not
     unsigned short int getPriority(IA *ia) override;
   private:
-    unsigned char state = 0;
-    unsigned short priority;
+    unsigned short int state = 0;
+    unsigned short int priority = 0;
 };
 
 #endif

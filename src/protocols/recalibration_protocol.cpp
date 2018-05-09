@@ -19,7 +19,9 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     if((!digitalRead(DIST_BACK_LEFT) || !digitalRead(DIST_BACK_RIGHT))
         && ia->getFlag("simulator")==0){
       state-=2;
-      ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      if(digitalRead(DIST_BACK_LEFT) || digitalRead(DIST_BACK_RIGHT)){
+        ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      }
     }else{
       Serial.println("LOG Y-Axis_recalibrated");
     }
@@ -40,7 +42,9 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     if((!digitalRead(DIST_BACK_LEFT) || !digitalRead(DIST_BACK_RIGHT))
         && ia->getFlag("simulator")==0){
       state-=2;
-      ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      if(digitalRead(DIST_BACK_LEFT) || digitalRead(DIST_BACK_RIGHT)){
+        ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      }
     }else{
       Serial.println("LOG X-Axis_recalibrated");
     }
