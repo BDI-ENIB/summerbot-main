@@ -2,9 +2,10 @@
 #include "../../robot.h"
 #include "../../ia.hpp"
 #include "../../nodes.hpp"
+#include "../../pinout.h"
 #include <Arduino.h>
 
-void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of this protocol
+void BeeActivationProtocol::update(IA *ia){ //execute the next action of this protocol
   Servo *servo;
   switch(state){
     case 0:
@@ -17,14 +18,14 @@ void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of t
     }else{
       servo->attach(SERVO6);
     }
-    servo.write(servo.read()+90);
+    servo->write(servo->read()+90);
     break;
     case 2:
     ia->mb->translate(570-ROBOT_1_W/2-30);
     Serial.println("LOG splating_the_bee..._hopefully_xD");
     break;
     case 3:
-    servo.write(servo.read()-90);
+    servo->write(servo->read()-90);
     break;
     default:
     // Abnormal bee-havior
@@ -33,10 +34,10 @@ void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of t
   state++;
 }
 
-boolean BuldozerCubeLoadingProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
+boolean BeeActivationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
   return state>3;
 }
 
-unsigned short int BuldozerCubeLoadingProtocol::getPriority(IA *ia){
+unsigned short int BeeActivationProtocol::getPriority(IA *ia){
   return priority;
 }
