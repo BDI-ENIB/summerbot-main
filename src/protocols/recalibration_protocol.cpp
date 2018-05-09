@@ -74,8 +74,12 @@ bool RecalibrationProtocol::isCompleted(){ //wether the last action of this prot
 }
 
 unsigned short int RecalibrationProtocol::getPriority(IA *ia){
-  if(ia->getFlag("recalibrationNeeded")!=NULL){
-    return PRIORITY_HIGHEST;
+  if(waitForFlag){
+    if(ia->getFlag("recalibrationNeeded")!=NULL){
+      return PRIORITY_HIGHEST;
+    }
+    return PRIORITY_NULL;
+  }else{
+    return priority;
   }
-  return PRIORITY_NULL;
 }

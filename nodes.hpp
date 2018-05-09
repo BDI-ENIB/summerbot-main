@@ -33,4 +33,6 @@ extern Node g_cross3;
 extern Node unloadingZones[];
 extern Node RoadCubeLoadingZone[];
 extern Node RealCubeLoadingZone[];
+extern Node RoadBuldozerCubeLoadingZone[];
+extern Node RealBuldozerCubeLoadingZone[];
 #endif

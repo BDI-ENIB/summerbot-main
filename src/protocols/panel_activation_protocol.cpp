@@ -27,7 +27,6 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     break;
     case 5:
     ia->mb->moveTo(g_roadMain.getX(), g_roadMain.getY(ia->getFlag("side")),0);
-    Serial.println("LOG Starting_PanelActivationProtocol");
     break;
     default:
     // Anomality
@@ -37,7 +36,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
 }
 
 bool PanelActivationProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-    return state>5;
+    return doesReposition?(state>5):(state>4);
 }
 
 unsigned short int PanelActivationProtocol::getPriority(IA *ia){

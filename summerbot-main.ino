@@ -5,6 +5,7 @@
 #include "src/protocols/cube_loading_protocol.hpp"
 #include "src/protocols/recalibration_protocol.hpp"
 #include "src/protocols/panel_activation_protocol.hpp"
+#include "src/protocols/buldozer_cube_loading_protocol.hpp"
 #include "src/summerbot-claw/claw.hpp"
 #include "src/summerbot-motionbase/MotionBase.h"
 #include "src/summerbot-screen/Screen.h"
@@ -72,6 +73,7 @@ void setup () {
   commands_init();
   //AI
   ia = new IA(mb, claw, screen);
+  /*
   ia->addProtocol(new CubeUnloadingProtocol(0,PRIORITY_VERY_HIGH));
   ia->addProtocol(new CubeUnloadingProtocol(1,PRIORITY_LOW));
   ia->addProtocol(new CubeUnloadingProtocol(2,PRIORITY_VERY_HIGH));
@@ -80,6 +82,12 @@ void setup () {
   ia->addProtocol(new CubeLoadingProtocol(0,PRIORITY_HIGH));
   ia->addProtocol(new CubeLoadingProtocol(1,PRIORITY_VERY_LOW));
   ia->addProtocol(new CubeLoadingProtocol(2,PRIORITY_HIGH,true));
+  */
+  ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
+  ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
+  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1));
+  //ia->addProtocol(new RecalibrationProtocol(PRIORITY_HIGH, false));
+  //ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
   ia->setFlag("recalibrationNeeded", 0);

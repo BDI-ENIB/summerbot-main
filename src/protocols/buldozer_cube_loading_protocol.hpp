@@ -6,7 +6,8 @@ class IA;
 
 class BuldozerCubeLoadingProtocol: public Protocol {
   public:
-    BuldozerCubeLoadingProtocol(unsigned char lz,unsigned short p):loadingZone{lz}, priority{p}{};
+    BuldozerCubeLoadingProtocol(unsigned char lz, unsigned short p, bool dr = false, short pup = -1):
+                loadingZone{lz}, priority{p}, doesReposition{dr}, predefinedUnloadingPos{pup} {};
     void update(IA *ia) override; //execute the next action of this protocol
     bool isCompleted() override; //wether the last action of this protocol have already been executed or not
     unsigned short int getPriority(IA *ia) override;
@@ -14,6 +15,8 @@ class BuldozerCubeLoadingProtocol: public Protocol {
     unsigned char loadingZone;
     unsigned char state = 0;
     unsigned short priority;
+    bool doesReposition;
+    short predefinedUnloadingPos;
 };
 
 #endif
