@@ -16,3 +16,6 @@
 [submodule "summerbot-bee"]
 	path = src/summerbot-bee
 	url = https://github.com/arenibProjects/summerbot-bee
+[submodule "src/summerbot-bee"]
+	path = src/summerbot-bee
+	url = https://github.com/arenibProjects/summerbot-bee
