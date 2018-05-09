@@ -8,9 +8,11 @@ void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of t
   short unloadingZone=0; // I still don't understand why the fu** does creating a var in a switch throw an error.
   switch(state){
     case 0:
-    ia->mb->moveTo(RoadBuldozerCubeLoadingZone[loadingZone].getX(),
+    if(initialPlacement == true){
+      ia->mb->moveTo(RoadBuldozerCubeLoadingZone[loadingZone].getX(),
               RoadBuldozerCubeLoadingZone[loadingZone].getY(ia->getFlag("side")),
               RoadBuldozerCubeLoadingZone[loadingZone].getA(ia->getFlag("side")));
+    }
     Serial.println("LOG Starting_BuldozerCubeLoadingProtocol_#"+String(loadingZone));
     break;
     case 1:
@@ -25,7 +27,7 @@ void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of t
     }else{
       unloadingZone = predefinedUnloadingPos;
     }
-    ia->mb->moveTo(unloadingZones[unloadingZone].getX(),
+    ia->mb->moveTo(unloadingZones[unloadingZone].getX()+10,
               unloadingZones[unloadingZone].getY(ia->getFlag("side")),
               PI);
 

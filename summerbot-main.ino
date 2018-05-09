@@ -21,8 +21,8 @@
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
 #define MATCHLENGHT 100000 //millisec
-#define SIMULATOR true
-#define TARGET_SCORE 40
+#define SIMULATOR false
+#define TARGET_SCORE 42
 
 IntervalTimer motionTimer;
 long startTime;
@@ -83,7 +83,7 @@ void setup () {
   ia = new IA(mb, claw, screen);
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
-  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1));
+  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
   ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
