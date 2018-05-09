@@ -40,7 +40,7 @@ void CubeUnloadingProtocol::update(IA *ia){ //execute the next action of this pr
 }
 
 boolean CubeUnloadingProtocol::isCompleted(){ //wether the last action of this protocol have already been executed or not
-  return state>5;
+  return ia->getFlag("cross"+(String)unloadingZone+"SuccessfullyCleared", 0);
 }
 
 unsigned short int CubeUnloadingProtocol::getPriority(IA *ia){

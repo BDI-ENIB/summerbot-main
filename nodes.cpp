@@ -9,13 +9,23 @@ Node g_cross3=Node(1500,900);
 Node unloadingZones[]={
   Node(180+60,500),
   Node(180+60,720),
-  Node(180+60,830)};
+  Node(180+60,830)
+};
 Node RoadCubeLoadingZone[]={
   Node(540,610),
   Node(1190,610),
-  Node(1500,610)};
+  Node(1500,610)
+};
 Node RealCubeLoadingZone[]={
   Node(540,850-ROBOT_1_W/2,PI/2),
   Node(1190,280+44+ROBOT_1_W/2,-PI/2),
   Node(1500,1100-ROBOT_1_W/2,PI/2)
+};
+Node RoadBuldozerCubeLoadingZone[]={
+Node(840,1130,-PI/2),
+Node(1540,610,-PI/2)
+};
+Node RealBuldozerCubeLoadingZone[]={
+Node(840,850,PI),
+Node(1540,210,2*PI/3)
 };
