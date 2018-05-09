@@ -2,7 +2,7 @@
 #include "../../ia.hpp"
 #include "../../robot.h"
 #include "../../pinout.h"
-#define SIMULATOR true
+#define SIMULATOR
 
 void RecalibrationProtocol::update(IA *ia){ //execute the next action of this protocol
 
@@ -16,10 +16,11 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translateRPM(-10, 60);
     break;
     case 2:
-    if((digitalRead(DIST_BACK_LEFT)==0 || digitalRead(DIST_BACK_RIGHT)==0)
-        && ia->getFlag("simulator")==0){
+    if((digitalRead(DIST_BACK_LEFT) || digitalRead(DIST_BACK_RIGHT))
+  /*&& ia->getFlag("simulator")==0*/){
       state-=2;
-      if(digitalRead(DIST_BACK_LEFT)==1 || digitalRead(DIST_BACK_RIGHT)==1){
+      if(!digitalRead(DIST_BACK_LEFT) || !digitalRead(DIST_BACK_RIGHT)){
+        ia->mb->translate(10);
         ia->mb->rotate(digitalRead(DIST_BACK_LEFT)==0?PI/16:-PI/16);
       }
     }else{

@@ -22,7 +22,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     Serial.println("LOG smashing_the_button");
     break;
     case 4:
-    ia->mb->moveTo(g_roadButton.getX(), g_roadButton.getY(ia->getFlag("side")));
+    ia->mb->translate(140); // Si il y a un déréglage en tapant le bouton, ça tape la croix #1
     Serial.println("LOG backing_away");
     break;
     case 5:

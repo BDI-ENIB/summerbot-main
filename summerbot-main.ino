@@ -43,6 +43,8 @@ void setup () {
 
   pinMode(SIDE, INPUT_PULLUP);
   pinMode(STARTER, INPUT_PULLUP);
+  pinMode(DIST_BACK_LEFT, INPUT_PULLUP);
+  pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
 
   //screen
   //screen = new Screen;
