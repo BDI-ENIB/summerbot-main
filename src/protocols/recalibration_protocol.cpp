@@ -16,11 +16,11 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translateRPM(-10, 60);
     break;
     case 2:
-    if((!digitalRead(DIST_BACK_LEFT) || !digitalRead(DIST_BACK_RIGHT))
+    if((digitalRead(DIST_BACK_LEFT)==0 || digitalRead(DIST_BACK_RIGHT)==0)
         && ia->getFlag("simulator")==0){
       state-=2;
-      if(digitalRead(DIST_BACK_LEFT) || digitalRead(DIST_BACK_RIGHT)){
-        ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      if(digitalRead(DIST_BACK_LEFT)==1 || digitalRead(DIST_BACK_RIGHT)==1){
+        ia->mb->rotate(digitalRead(DIST_BACK_LEFT)==0?PI/16:-PI/16);
       }
     }else{
       Serial.println("LOG Y-Axis_recalibrated");
@@ -39,11 +39,11 @@ void RecalibrationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->translateRPM(-10, 60);
     break;
     case 7:
-    if((!digitalRead(DIST_BACK_LEFT) || !digitalRead(DIST_BACK_RIGHT))
+    if((digitalRead(DIST_BACK_LEFT)==0 || digitalRead(DIST_BACK_RIGHT)==0)
         && ia->getFlag("simulator")==0){
       state-=2;
-      if(digitalRead(DIST_BACK_LEFT) || digitalRead(DIST_BACK_RIGHT)){
-        ia->mb->rotate(!digitalRead(DIST_BACK_LEFT)?PI/16:-PI/16);
+      if(digitalRead(DIST_BACK_LEFT)==1 || digitalRead(DIST_BACK_RIGHT)==1){
+        ia->mb->rotate(digitalRead(DIST_BACK_LEFT)==0?PI/16:-PI/16);
       }
     }else{
       Serial.println("LOG X-Axis_recalibrated");

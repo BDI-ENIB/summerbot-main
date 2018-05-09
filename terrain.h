@@ -38,8 +38,8 @@ volatile extern bool globalSide;
 #define DRAIN_WASTE_X 1750
 #define DRAIN_WASTE_Y (globalSide?1197:1803)
 
-#define START_1_X 300
-#define START_1_Y (globalSide?300:3000-300)
+#define START_1_X (110+55)
+#define START_1_Y (globalSide?110+10:3000-120)
 #define START_1_A ((globalSide?3.141592:-3.141592)/2.0)
 
 #endif
