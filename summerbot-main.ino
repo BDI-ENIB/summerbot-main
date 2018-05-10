@@ -140,7 +140,8 @@ void delayStarter() {
       screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
-      screen->clearIcon(ARMED);
+      screen->clearIcon(ARMED,false); //no refresh
+	  screen->drawIcon(LAUNCHED);
       return;
     }
     delay(1);
