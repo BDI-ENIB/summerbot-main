@@ -54,7 +54,7 @@ void setup () {
   pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
 
   //screen
-  screen = new Screen;
+  screen = new Screen(SIMULATOR);
   screen->showInitFrame(TARGET_SCORE);
   while(screen->isBusy()) { //waiting for the screen to update
     delay(100);
@@ -69,11 +69,11 @@ void setup () {
   bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
   //Claw -> disable for now, pins need to be changed before re-enabling
-  /*tmplift.attach(9);
-  tmpClampL.attach(10);
-  tmpClampR.attach(11);
+  tmplift.attach(SERVO1);
+  tmpClampL.attach(SERVO2);
+  tmpClampR.attach(SERVO3);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
-  claw->init();*/
+  claw->init();
 
   //SensorManager
   sensorManager = new SensorManager();
@@ -153,6 +153,7 @@ void delayStarter() {
 
 long IR_detect;
 bool IR_blocked = false;
+bool timeLimitDisplayed = false;
 void loop () {
   if ((sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
         sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
@@ -165,6 +166,11 @@ void loop () {
   }
   if (((millis() - startTime) >= MATCHLENGHT) ||
     (IR_blocked && (millis()-IR_detect)>500)){
+	if((millis() - startTime) >= MATCHLENGHT && !timeLimitDisplayed) {
+		screen->clearIcon(LAUNCHED,false);
+		screen->drawIcon(TIME_LIMIT);
+		timeLimitDisplayed = true;
+	}
     if(!blocked){
       mb->pause();
       Serial.println("LOG robot_blocked");
