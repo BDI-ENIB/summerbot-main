@@ -19,16 +19,16 @@
 #include "ia.hpp"
 
 #define STEPS_PER_REV 200
-#define DISTANCE_THRESHOLD_MOVING_FORWARD 300 //15cm
-#define DISTANCE_THRESHOLD_MOVING_BACKWARD 200 //5cm
+#define DISTANCE_THRESHOLD_MOVING_FORWARD 250 //15cm
+#define DISTANCE_THRESHOLD_MOVING_BACKWARD 0 //5cm ~ 200 ~ now disabled
 #define MATCHLENGHT 100000 //millisec
-#define SIMULATOR false
+#define SIMULATOR true
 #define TARGET_SCORE 42
 
 IntervalTimer motionTimer;
 long startTime;
 DualDRV8825* dd = new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24); // steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
-MotionBase *mb = new MotionBase(dd, 109 / 2.0, 180 / 2.0); // motors, wheel radius, robot radius, x, y, a
+MotionBase *mb = new MotionBase(dd, 109 / 2.0, 180 / 2.0 +2); // motors, wheel radius, robot radius, x, y, a
 
 Servo tmplift;
 Servo tmpClampL;
@@ -66,7 +66,7 @@ void setup () {
   Servo *rightSideBeeSplasher = new Servo();
   rightSideBeeSplasher->write(180 - (OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
-  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
+  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, !globalSide);
 
   //Claw
   tmplift.attach(9);
@@ -149,22 +149,25 @@ void delayStarter() {
 
 }
 
+long IR_detect;
+bool IR_blocked = false;
 void loop () {
+  if ((sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+        sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+        sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
+        sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD))&&!SIMULATOR){
+    IR_blocked = true;
+  }else{
+    IR_blocked = false;
+    IR_detect = millis();
+  }
   if (((millis() - startTime) >= MATCHLENGHT) ||
-      (
-        (
-          sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-          sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-          sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-          sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD)
-        )&&!SIMULATOR
-      )
-    ) {
-      if(!blocked){
-        mb->pause();
-        Serial.println("LOG robot_blocked");
-      }
-      blocked=true;
+    (IR_blocked && (millis()-IR_detect)>500)){
+    if(!blocked){
+      mb->pause();
+      Serial.println("LOG robot_blocked");
+    }
+    blocked=true;
     return;
   }
   commands_update();
