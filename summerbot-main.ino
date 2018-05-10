@@ -150,13 +150,13 @@ void delayStarter() {
 }
 
 void loop () {
-  if (millis() - startTime >= MATCHLENGHT ||
+  if (((millis() - startTime) >= MATCHLENGHT) ||
       (
         (
           sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-          sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
-          sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-          sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_BACKWARD)
+          sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
+          sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
+          sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD)
         )&&!SIMULATOR
       )
     ) {
