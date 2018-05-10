@@ -19,7 +19,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     Serial.println("LOG going_to_the_button");
     break;
     case 3:
-    ia->mb->translateRPM(-60,60);
+    ia->mb->translate(-60);
     Serial.println("LOG smashing_the_button");
     if(doesRecalibrate==0){
       state+=4;
@@ -49,7 +49,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     }
     break;
     case 8:
-    ia->mb->translate(60);
+    ia->mb->translate(80);
     Serial.println("LOG backing_away");
     break;
     case 9:

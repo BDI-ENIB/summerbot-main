@@ -22,13 +22,13 @@
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 250 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 0 //5cm ~ 200 ~ now disabled
 #define MATCHLENGHT 100000 //millisec
-#define SIMULATOR false
+#define SIMULATOR true
 #define TARGET_SCORE 42
 
 IntervalTimer motionTimer;
 long startTime;
 DualDRV8825* dd = new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24); // steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
-MotionBase *mb = new MotionBase(dd, 109 / 2.0, 180 / 2.0 +2); // motors, wheel radius, robot radius, x, y, a
+MotionBase *mb = new MotionBase(dd, 109 / 2.0, 165 / 2.0 +2); // motors, wheel radius, robot radius, x, y, a
 
 Servo tmplift;
 Servo tmpClampL;
@@ -92,9 +92,6 @@ void setup () {
   //AI
   ia = new IA(mb, claw, screen, bee);
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false, false));
-  ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
-  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
-  ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
   ia->setFlag("recalibrationNeeded", 0);
@@ -117,8 +114,7 @@ void setup () {
 
   { // Init. hardcoded move, the AI will wait for those move to be finished before starting
     mb->pause();
-    mb->translate(200);
-    mb->translate(-200);
+    delay(20*1000);
   }
 
   //side
