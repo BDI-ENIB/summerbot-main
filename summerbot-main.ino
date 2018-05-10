@@ -68,15 +68,12 @@ void setup () {
   rightSideBeeSplasher->attach(SERVO5);
   bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, !globalSide);
 
-  //Claw
-  tmplift.attach(9);
+  //Claw -> disable for now, pins need to be changed before re-enabling
+  /*tmplift.attach(9);
   tmpClampL.attach(10);
   tmpClampR.attach(11);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
-  claw->init();
-
-  Serial.println("VIVE");
-  screen->drawIcon(VIVE);
+  claw->init();*/
 
   //SensorManager
   sensorManager = new SensorManager();
