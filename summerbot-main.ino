@@ -66,7 +66,7 @@ void setup () {
   Servo *rightSideBeeSplasher = new Servo();
   rightSideBeeSplasher->write(180 - (BEE_OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
-  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, !globalSide);
+  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
   //Claw -> disable for now, pins need to be changed before re-enabling
   /*tmplift.attach(9);
@@ -102,6 +102,7 @@ void setup () {
   ia->setFlag("cross0SuccessfullyCleared", 0);
   ia->setFlag("cross1SuccessfullyCleared", 0);
   ia->setFlag("cross2SuccessfullyCleared", 0);
+  ia->setFlag("ignore_IR", 0);
 
 
   //Starter & Simulator
@@ -156,7 +157,7 @@ void loop () {
   if ((sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
         sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
         sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-        sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD))&&!SIMULATOR){
+        sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD))&&!SIMULATOR&&!ia->getFlag("ignore_IR")){
     IR_blocked = true;
   }else{
     IR_blocked = false;
