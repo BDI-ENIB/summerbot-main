@@ -53,6 +53,9 @@ void setup () {
   pinMode(DIST_BACK_LEFT, INPUT_PULLUP);
   pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
 
+  //Serial
+  Serial.begin(250000);
+  commands_init();
   //screen
   screen = new Screen(SIMULATOR);
   screen->showInitFrame(TARGET_SCORE);
@@ -85,10 +88,6 @@ void setup () {
   //Timer
   motionTimer.begin(motionLoop, 100); // 10kHz (100 is the period in microS)
   motionTimer.priority(1); //slightly above normal
-
-  //Serial
-  Serial.begin(250000);
-  commands_init();
 
   //AI
   ia = new IA(mb, claw, screen, bee);
