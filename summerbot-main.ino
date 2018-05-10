@@ -64,6 +64,7 @@ void setup () {
   Servo *leftSideBeeSplasher = new Servo();
   leftSideBeeSplasher->attach(SERVO6);
   Servo *rightSideBeeSplasher = new Servo();
+  rightSideBeeSplasher->write(180 - (OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
   bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
