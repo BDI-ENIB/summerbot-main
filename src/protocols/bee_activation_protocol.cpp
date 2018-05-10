@@ -3,6 +3,7 @@
 #include "../../ia.hpp"
 #include "../../nodes.hpp"
 #include "../../pinout.h"
+#include "../summerbot-bee/Bee.h"
 #include <Arduino.h>
 
 void BeeActivationProtocol::update(IA *ia){ //execute the next action of this protocol
@@ -16,14 +17,14 @@ void BeeActivationProtocol::update(IA *ia){ //execute the next action of this pr
     Serial.println("LOG Starting_BeeSplatProtocol_(bugsplat...understood?_loool)");
     break;
     case 2:
-    //
+    ia->bee->deploy();
     break;
     case 3:
     ia->mb->translate(570-ROBOT_1_W-50);
     Serial.println("LOG splating_the_bee..._hopefully_xD");
     break;
     case 4:
-    //
+    ia->bee->retract();
     break;
     default:
     // Abnormal bee-havior

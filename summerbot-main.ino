@@ -12,6 +12,7 @@
 #include "src/summerbot-screen/Screen.h"
 #include "src/summerbot-screen/IconsId.h"
 #include "src/summerbot-sensormanager/SensorManager.hpp"
+#include "src/summerbot-bee/Bee.h"
 #include "pinout.h"
 #include "terrain.h"
 #include "robot.h"
@@ -36,6 +37,8 @@ Claw *claw;
 
 Screen *screen;
 
+Bee *bee;
+
 IA *ia;
 
 SensorManager* sensorManager;
@@ -56,6 +59,13 @@ void setup () {
   while(screen->isBusy()) { //waiting for the screen to update
     delay(100);
   }
+
+  //Bee
+  Servo *leftSideBeeSplasher = new Servo();
+  leftSideBeeSplasher->attach(SERVO6);
+  Servo *rightSideBeeSplasher = new Servo();
+  rightSideBeeSplasher->attach(SERVO5);
+  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
   //Claw
   tmplift.attach(9);
@@ -80,7 +90,7 @@ void setup () {
   commands_init();
 
   //AI
-  ia = new IA(mb, claw, screen);
+  ia = new IA(mb, claw, screen, bee);
   ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
