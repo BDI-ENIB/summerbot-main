@@ -54,7 +54,7 @@ void setup () {
   pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
 
   //screen
-  screen = new Screen;
+  screen = new Screen(SIMULATOR);
   screen->showInitFrame(TARGET_SCORE);
   while(screen->isBusy()) { //waiting for the screen to update
     delay(100);
