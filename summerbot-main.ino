@@ -22,7 +22,7 @@
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 250 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 0 //5cm ~ 200 ~ now disabled
 #define MATCHLENGHT 100000 //millisec
-#define SIMULATOR true
+#define SIMULATOR false
 #define TARGET_SCORE 42
 
 IntervalTimer motionTimer;
