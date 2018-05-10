@@ -1,6 +1,6 @@
 #include "nodes.hpp"
-Node g_roadMain =Node(335,610);
-Node g_roadButton =Node(335,1130);
+Node g_roadMain =Node(325,610);
+Node g_roadButton =Node(325,1130);
 Node g_start=Node(180,200);
 Node g_cross1=Node(550,650);
 Node g_cross2=Node(990,300);

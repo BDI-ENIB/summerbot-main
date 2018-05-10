@@ -18,11 +18,11 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     Serial.println("LOG going_to_the_button");
     break;
     case 3:
-    ia->mb->translateRPM(-20,20);
+    ia->mb->translateRPM(-20,6);
     Serial.println("LOG smashing_the_button");
     break;
     case 4:
-    ia->mb->translate(140); // Si il y a un déréglage en tapant le bouton, ça tape la croix #1
+    ia->mb->translate(115); // Si il y a un déréglage en tapant le bouton, ça tape la croix #1
     Serial.println("LOG backing_away");
     break;
     case 5:

@@ -64,14 +64,14 @@ void setup () {
   Servo *leftSideBeeSplasher = new Servo();
   leftSideBeeSplasher->attach(SERVO6);
   Servo *rightSideBeeSplasher = new Servo();
-  rightSideBeeSplasher->write(180 - (OFFSET+RETRACTED)); // workaround
+  rightSideBeeSplasher->write(180 - (BEE_OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
-  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, !globalSide);
+  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
-  //Claw
-  tmplift.attach(9);
-  tmpClampL.attach(10);
-  tmpClampR.attach(11);
+  //Claw -> disable for now, pins need to be changed before re-enabling
+  tmplift.attach(SERVO1);
+  tmpClampL.attach(SERVO2);
+  tmpClampR.attach(SERVO3);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
   claw->init();
 
@@ -102,6 +102,7 @@ void setup () {
   ia->setFlag("cross0SuccessfullyCleared", 0);
   ia->setFlag("cross1SuccessfullyCleared", 0);
   ia->setFlag("cross2SuccessfullyCleared", 0);
+  ia->setFlag("ignore_IR", 0);
 
 
   //Starter & Simulator
@@ -140,7 +141,8 @@ void delayStarter() {
       screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
-      screen->clearIcon(ARMED);
+      screen->clearIcon(ARMED,false); //no refresh
+	  screen->drawIcon(LAUNCHED);
       return;
     }
     delay(1);
@@ -151,11 +153,12 @@ void delayStarter() {
 
 long IR_detect;
 bool IR_blocked = false;
+bool timeLimitDisplayed = false;
 void loop () {
   if ((sensorManager->detectObject(IRS1, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
         sensorManager->detectObject(IRS4, DISTANCE_THRESHOLD_MOVING_FORWARD) ||
         sensorManager->detectObject(IRS2, DISTANCE_THRESHOLD_MOVING_BACKWARD) ||
-        sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD))&&!SIMULATOR){
+        sensorManager->detectObject(IRS3, DISTANCE_THRESHOLD_MOVING_BACKWARD))&&!SIMULATOR&&!ia->getFlag("ignore_IR")){
     IR_blocked = true;
   }else{
     IR_blocked = false;
@@ -163,6 +166,11 @@ void loop () {
   }
   if (((millis() - startTime) >= MATCHLENGHT) ||
     (IR_blocked && (millis()-IR_detect)>500)){
+	if((millis() - startTime) >= MATCHLENGHT && !timeLimitDisplayed) {
+		screen->clearIcon(LAUNCHED,false);
+		screen->drawIcon(TIME_LIMIT);
+		timeLimitDisplayed = true;
+	}
     if(!blocked){
       mb->pause();
       Serial.println("LOG robot_blocked");
