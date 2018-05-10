@@ -64,16 +64,16 @@ void setup () {
   Servo *leftSideBeeSplasher = new Servo();
   leftSideBeeSplasher->attach(SERVO6);
   Servo *rightSideBeeSplasher = new Servo();
-  rightSideBeeSplasher->write(180 - (OFFSET+RETRACTED)); // workaround
+  rightSideBeeSplasher->write(180 - (BEE_OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
   bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
 
-  //Claw
-  tmplift.attach(9);
+  //Claw -> disable for now, pins need to be changed before re-enabling
+  /*tmplift.attach(9);
   tmpClampL.attach(10);
   tmpClampR.attach(11);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
-  claw->init();
+  claw->init();*/
 
   //SensorManager
   sensorManager = new SensorManager();
