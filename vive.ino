@@ -8,6 +8,15 @@ void vive_init() {
   sCmd1.addCommand("POS", vive_pos_command);
   sCmd1.addCommand("READY", vive_ready_command);       // are you ready?
 }
+void vive_side(bool side){
+  Serial1.print("SBPOS ");
+  Serial1.print(62);
+  Serial1.print(" ");
+  Serial1.print(1500+(side?-112.5:112.5));
+  Serial1.print(" ");
+  Serial1.print(1000);
+  Serial1.println(" 0 0 0");
+}
 void vive_update() {
   sCmd1.readSerial();
   if (millis() - vt > 300) {
