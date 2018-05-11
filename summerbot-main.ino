@@ -116,7 +116,7 @@ void setup () {
 
   { // Init. hardcoded move, the AI will wait for those move to be finished before starting
     mb->pause();
-    delay(20*1000);
+    delay(35*1000);
   }
 
   //side
