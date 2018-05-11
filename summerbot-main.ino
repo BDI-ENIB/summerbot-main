@@ -102,7 +102,7 @@ void setup () {
   ia = new IA(mb, claw, screen, bee);
   //ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
-  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
+  ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 0, false));
   ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
   if(!forcedSide){
     ia->setFlag("side", globalSide);

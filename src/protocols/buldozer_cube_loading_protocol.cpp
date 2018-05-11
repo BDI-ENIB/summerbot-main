@@ -27,7 +27,7 @@ void BuldozerCubeLoadingProtocol::update(IA *ia){ //execute the next action of t
     }else{
       unloadingZone = predefinedUnloadingPos;
     }
-    ia->mb->moveTo(unloadingZones[unloadingZone].getX()+25,
+    ia->mb->moveTo(unloadingZones[unloadingZone].getX()+25+20,
               unloadingZones[unloadingZone].getY(ia->getFlag("side")),
               PI);
 
