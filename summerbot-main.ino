@@ -74,7 +74,7 @@ void setup () {
   Servo *rightSideBeeSplasher = new Servo();
   rightSideBeeSplasher->write(180 - (BEE_OFFSET+RETRACTED)); // workaround
   rightSideBeeSplasher->attach(SERVO5);
-  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, globalSide);
+  bee = new Bee(leftSideBeeSplasher, rightSideBeeSplasher, !globalSide);
 
   //Claw -> disable for now, pins need to be changed before re-enabling
   tmplift.attach(SERVO1);
@@ -96,7 +96,7 @@ void setup () {
 
   //AI
   ia = new IA(mb, claw, screen, bee);
-  ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false));
+  ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
   ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
@@ -142,7 +142,7 @@ void delayStarter() {
     tmp = (double)(tmp * 99.0 + digitalRead(STARTER)) / 100.0;
     if (!hasStarterBeenInserted && tmp >= 0.99) {
       hasStarterBeenInserted = true;
-      screen->drawIcon(ARMED);
+      //screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
       screen->clearIcon(ARMED,false); //no refresh

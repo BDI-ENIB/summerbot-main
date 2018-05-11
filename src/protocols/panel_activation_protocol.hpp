@@ -6,7 +6,7 @@ class IA;
 
 class PanelActivationProtocol: public Protocol {
   public:
-    PanelActivationProtocol(unsigned short p, bool dr):priority{p}, doesReposition{dr} {};
+    PanelActivationProtocol(unsigned short p, bool dRep = false, bool dRec = true):priority{p}, doesReposition{dRep}, doesRecalibrate{dRec} {};
     void update(IA *ia) override; //execute the next action of this protocol
     bool isCompleted() override; //wether the last action of this protocol have already been executed or not
     unsigned short int getPriority(IA *ia) override;
@@ -14,6 +14,7 @@ class PanelActivationProtocol: public Protocol {
     unsigned short int state = 0;
     unsigned short int priority = 0;
     bool doesReposition;
+    bool doesRecalibrate;
 };
 
 #endif
