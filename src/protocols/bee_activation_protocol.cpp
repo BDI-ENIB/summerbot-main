@@ -24,7 +24,7 @@ void BeeActivationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->rotate((ia->getFlag("side")?1:-1)*PI/4);
     break;
     case 4:
-    ia->mb->translate(500-ROBOT_1_W-50);
+    ia->mb->translate(500-ROBOT_1_W-100);
     Serial.println("LOG splating_the_bee..._hopefully_xD");
     break;
     case 5:

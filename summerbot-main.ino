@@ -63,6 +63,14 @@ void setup () {
     delay(100);
   }
 
+
+    //side
+    if(!forcedSide){
+      globalSide = digitalRead(SIDE);
+      mb->setPosition(START_1_X,START_1_Y,START_1_A);
+    }
+
+
   //Bee
   Servo *leftSideBeeSplasher = new Servo();
   leftSideBeeSplasher->attach(SERVO6);
@@ -95,6 +103,9 @@ void setup () {
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
   ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
+  if(!forcedSide){
+    ia->setFlag("side", globalSide);
+  }
   ia->setFlag("towerLoaded", 0);
   ia->setFlag("simulator", (SIMULATOR?1:0));
   ia->setFlag("recalibrationNeeded", 0);
@@ -121,12 +132,6 @@ void setup () {
     mb->translate(-200);
   }
 
-  //side
-  if(!forcedSide){
-    globalSide = digitalRead(SIDE);
-    ia->setFlag("side", globalSide);
-    mb->setPosition(START_1_X,START_1_Y,START_1_A);
-  }
   ia->activate();
 }
 
