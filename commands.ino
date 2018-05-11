@@ -30,6 +30,7 @@ void commands_update() {
 void remoteStarter(){
   while(!simStart){
     commands_update();
+    vive_update();
     delay(10);
   }
   delay(1000);
