@@ -59,11 +59,11 @@ void setup () {
   commands_init();
 
   //screen
-  screen = new Screen(true);
+  /*screen = new Screen(true);
   screen->showInitFrame(TARGET_SCORE);
   while(screen->isBusy()) { //waiting for the screen to update
     delay(100);
-  }
+  }*/
 
   //Bee
   Servo *leftSideBeeSplasher = new Servo();
@@ -136,11 +136,11 @@ void delayStarter() {
     tmp = (double)(tmp * 99.0 + digitalRead(STARTER)) / 100.0;
     if (!hasStarterBeenInserted && tmp >= 0.99) {
       hasStarterBeenInserted = true;
-      screen->drawIcon(ARMED);
+      //screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
-      screen->clearIcon(ARMED,false); //no refresh
-	  screen->drawIcon(LAUNCHED);
+      //screen->clearIcon(ARMED,false); //no refresh
+	    //screen->drawIcon(LAUNCHED);
       return;
     }
     delay(1);
@@ -165,8 +165,8 @@ void loop () {
   if (((millis() - startTime) >= MATCHLENGHT) ||
     (IR_blocked && (millis()-IR_detect)>500)){
 	if((millis() - startTime) >= MATCHLENGHT && !timeLimitDisplayed) {
-		screen->clearIcon(LAUNCHED,false);
-		screen->drawIcon(TIME_LIMIT);
+		//screen->clearIcon(LAUNCHED,false);
+		//screen->drawIcon(TIME_LIMIT);
 		timeLimitDisplayed = true;
 	}
     if(!blocked){
