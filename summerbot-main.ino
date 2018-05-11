@@ -24,7 +24,7 @@
 #define MATCHLENGHT 100000 //millisec
 #define SIMULATOR false
 #define TARGET_SCORE 42
-#define IS_GREEN_SIDE false
+#define IS_ORANGE_SIDE digitalRead(SIDE);
 
 IntervalTimer motionTimer;
 long startTime;
@@ -122,7 +122,7 @@ void setup () {
   //side
   if(!forcedSide){
     //globalSide = digitalRead(SIDE);
-    globalSide = IS_GREEN_SIDE;
+    globalSide = IS_ORANGE_SIDE;
     ia->setFlag("side", globalSide);
     mb->setPosition(START_1_X,START_1_Y,START_1_A);
   }
