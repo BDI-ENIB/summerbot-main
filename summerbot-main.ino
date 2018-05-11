@@ -22,8 +22,9 @@
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 250 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 0 //5cm ~ 200 ~ now disabled
 #define MATCHLENGHT 100000 //millisec
-#define SIMULATOR true
+#define SIMULATOR false
 #define TARGET_SCORE 42
+#define IS_GREEN_SIDE false
 
 IntervalTimer motionTimer;
 long startTime;
@@ -56,8 +57,9 @@ void setup () {
   //Serial
   Serial.begin(250000);
   commands_init();
+
   //screen
-  screen = new Screen(SIMULATOR);
+  screen = new Screen(true);
   screen->showInitFrame(TARGET_SCORE);
   while(screen->isBusy()) { //waiting for the screen to update
     delay(100);
@@ -76,7 +78,7 @@ void setup () {
   tmpClampL.attach(SERVO2);
   tmpClampR.attach(SERVO3);
   claw = new Claw(&tmplift, &tmpClampL, &tmpClampR);
-  claw->init();
+  //claw->init();
 
   //SensorManager
   sensorManager = new SensorManager();
@@ -119,7 +121,8 @@ void setup () {
 
   //side
   if(!forcedSide){
-    globalSide = digitalRead(SIDE);
+    //globalSide = digitalRead(SIDE);
+    globalSide = IS_GREEN_SIDE;
     ia->setFlag("side", globalSide);
     mb->setPosition(START_1_X,START_1_Y,START_1_A);
   }
@@ -133,7 +136,7 @@ void delayStarter() {
     tmp = (double)(tmp * 99.0 + digitalRead(STARTER)) / 100.0;
     if (!hasStarterBeenInserted && tmp >= 0.99) {
       hasStarterBeenInserted = true;
-      //screen->drawIcon(ARMED);
+      screen->drawIcon(ARMED);
     }
     if (hasStarterBeenInserted && tmp <= 0.01) {
       screen->clearIcon(ARMED,false); //no refresh
