@@ -14,6 +14,7 @@
 #include "src/summerbot-sensormanager/SensorManager.hpp"
 #include "src/summerbot-bee/Bee.h"
 #include "pinout.h"
+#include "nodes.hpp"
 #include "terrain.h"
 #include "robot.h"
 #include "ia.hpp"
@@ -99,7 +100,7 @@ void setup () {
 
   //AI
   ia = new IA(mb, claw, screen, bee);
-  ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false, false));
+  //ia->addProtocol(new PanelActivationProtocol(PRIORITY_HIGHEST, false, false));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(0, PRIORITY_VERY_HIGH, true, 2));
   ia->addProtocol(new BuldozerCubeLoadingProtocol(1, PRIORITY_LOW, true, 1, false));
   ia->addProtocol(new BeeActivationProtocol(PRIORITY_MEDIUM));
@@ -130,6 +131,7 @@ void setup () {
     mb->pause();
     mb->translate(200);
     mb->translate(-200);
+    ia->mb->moveTo(g_roadButton.getX(), g_roadButton.getY(ia->getFlag("side")),0);
   }
 
   ia->activate();

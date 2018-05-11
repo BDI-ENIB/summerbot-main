@@ -14,7 +14,7 @@ void BeeActivationProtocol::update(IA *ia){ //execute the next action of this pr
     ia->mb->moveTo(RoadCubeLoadingZone[2].getX(), RoadCubeLoadingZone[2].getY(ia->getFlag("side")),  (ia->getFlag("side")?1:-1)*(-PI/4));
     break;
     case 1:
-    ia->mb->moveTo(2000-ROBOT_1_W_DEPLOYED/2-70,(ia->getFlag("side")?(ROBOT_1_W_DEPLOYED+30):3000-(ROBOT_1_W_DEPLOYED+30)), (ia->getFlag("side")?1:-1)*PI/4);
+    ia->mb->moveTo(2000-ROBOT_1_W_DEPLOYED/2-66,(ia->getFlag("side")?(ROBOT_1_W_DEPLOYED+30):3000-(ROBOT_1_W_DEPLOYED+30)), (ia->getFlag("side")?1:-1)*PI/4);
     Serial.println("LOG Starting_BeeSplatProtocol_(bugsplat...understood?)");
     break;
     case 2:
