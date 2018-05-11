@@ -19,7 +19,7 @@ void PanelActivationProtocol::update(IA *ia){ //execute the next action of this 
     Serial.println("LOG going_to_the_button");
     break;
     case 3:
-    ia->mb->translate(-60);
+    ia->mb->translate(-90);
     Serial.println("LOG smashing_the_button");
     if(doesRecalibrate==0){
       state+=4;
