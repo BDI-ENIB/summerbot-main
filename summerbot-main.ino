@@ -61,9 +61,6 @@ void setup () {
   //screen
   screen = new Screen(SIMULATOR);
   screen->showInitFrame(TARGET_SCORE);
-  while(screen->isBusy()) { //waiting for the screen to update
-    delay(100);
-  }
 
 
     //side
