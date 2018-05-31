@@ -57,6 +57,7 @@ void setup () {
   //Serial
   Serial.begin(250000);
   commands_init();
+  vive_init();
   //screen
   screen = new Screen(SIMULATOR);
   screen->showInitFrame(TARGET_SCORE);
@@ -153,6 +154,7 @@ void delayStarter() {
     }
     delay(1);
     commands_update();
+    vive_update();
   }
 
 }
@@ -185,6 +187,7 @@ void loop () {
     return;
   }
   commands_update();
+  vive_update();
   mb->resume();
   blocked=false;
   claw->update();
