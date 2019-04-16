@@ -19,7 +19,7 @@
 
 #define START_X 100
 #define START_Y (isGreenSide?2900:100)
-#define START_A (isGreenSide?90:-90)
+#define START_A (isGreenSide?-90:90)
 
 // Préparation de la base roulante
 IntervalTimer motionTimer;
