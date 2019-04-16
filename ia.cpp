@@ -1,22 +1,16 @@
 #include "ia.hpp"
 #include <Arduino.h>
 
-IA::IA(MotionBase *mb, Claw *claw, Screen *screen, Bee *bee):
+IA::IA(MotionBase *mb):
   protocols_{},
   protocolCount_{},
   mb{mb},
-  claw{claw},
-  screen{screen},
-  bee{bee},
   maxFlagIndex{0} {}
 
-IA::IA(MotionBase *mb, Claw *claw, Screen *screen, Bee *bee, Protocol *protocols[], unsigned short int protocolCount):
+IA::IA(MotionBase *mb, Protocol *protocols[], unsigned short int protocolCount):
   protocols_{},
   protocolCount_{protocolCount},
   mb{mb},
-  claw{claw},
-  bee{bee},
-  screen{screen},
   maxFlagIndex{0} {
   for (unsigned short int i = 0; i < protocolCount; ++i) {
     protocols_[i] = protocols[i];
@@ -44,7 +38,7 @@ void IA::autoselectProtocol() {
 
 void IA::update() {
   if(!active)return;
-  if (!mb->isBusy() && !claw->isBusy()) {
+  if (!mb->isBusy()) {
     if (selectedProtocolId_==-1||protocols_[selectedProtocolId_]->isCompleted()) {
       autoselectProtocol();
     }
@@ -63,26 +57,18 @@ void IA::setFlag(String flagName, unsigned char value) {
   dictionnary[++maxFlagIndex] = {flagName, value};
 }
 short int IA::getFlag(String flagName) { //return an unsigned char, or -1 if not found
-#if 1
-
   for (auto entry : dictionnary) {
     if (entry.id == flagName) {
       return entry.value;
     }
   }
-
-#else
-
-  //Je surchauffe, si qqn veux faire de l'optimisation et rajouter une hashmap ça me va
-
-#endif
   return -1;
 }
 void IA::activate(){
   active=true;
-  Serial.println("LOG activated_AI");
+  //Serial.println("LOG activated_AI");
 }
 void IA::deactivate(){
   active=false;
-  Serial.println("LOG deactivated_AI");
+  //Serial.println("LOG deactivated_AI");
 }

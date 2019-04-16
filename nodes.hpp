@@ -1,9 +1,6 @@
 #ifndef NODES_HPP
 #define NODES_HPP 1
 
-#include "src/summerbot-pathfinder/pathfinder.h"
-#include "terrain.h"
-#include "robot.h"
 
 class Node {
   private:

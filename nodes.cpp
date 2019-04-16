@@ -1,4 +1,7 @@
 #include "nodes.hpp"
+#include "robot.h"
+#include "Arduino.h"
+
 Node g_roadMain =Node(325,610);
 Node g_roadButton =Node(325,1130);
 Node g_start=Node(180,200);
