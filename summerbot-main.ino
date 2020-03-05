@@ -13,6 +13,9 @@
 #include "pinout.h"
 #include "robot.h"
 
+//Les actionneurs
+#include "src/summerbot-actionneurs/summerbot-actionneurs.hpp"
+
 #define STEPS_PER_REV 200
 #define DISTANCE_THRESHOLD_MOVING_FORWARD 250 //15cm
 #define DISTANCE_THRESHOLD_MOVING_BACKWARD 0 //5cm ~ 200 ~ now disabled
@@ -80,6 +83,10 @@ void setup () {
   while(!digitalRead(STARTER)) delay(100);
   //delayStarter();
   Serial.println("Starting!");
+  Servo* myservo = initialiseDrapeau();
+  baisserDrapeau(myservo);
+  delay(500);
+  leverDrapeau(myservo);
 
   //start time
   startTime = millis();

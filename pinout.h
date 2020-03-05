@@ -3,8 +3,8 @@
 #define SERVO2 3
 #define SERVO3 4
 #define SERVO4 5
-#define SERVO5 23
-#define SERVO6 22
+#define SERVO5 23 //pas branché
+#define SERVO6 22 //pas branché
 #define SERVO7 21
 #define SERVO8 20
 //ir
