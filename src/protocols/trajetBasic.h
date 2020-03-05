@@ -1,4 +1,3 @@
-
 //--------variables----------------------------
 #ifndef TRAJETBASIC
 #define TRAJETBASIC 1

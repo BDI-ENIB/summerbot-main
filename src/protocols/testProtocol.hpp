@@ -1,3 +1,4 @@
+//--------variables----------------------------
 #ifndef CUBE_LOAD_PROTOCOL
 #define CUBE_LOAD_PROTOCOL 1
 

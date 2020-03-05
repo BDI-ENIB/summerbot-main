@@ -3,6 +3,7 @@
 
 // Les protocoles:
 #include "src/protocols/testProtocol.hpp"
+#include "src/protocols/trajetBasic.h"
 
 // Le code pour les déplacement et l'ia:
 #include "src/summerbot-motionbase/MotionBase.h"
@@ -50,7 +51,7 @@ void setup () {
 
   // La motionbase
   dd = new DualDRV8825(200, 32, 30, 31, 29, 26, 25, 24);
-  mb = new MotionBase(dd, 109 / 2.0, 180 / 2.0 +2);
+  mb = new MotionBase(dd, 114 / 2.0, 169.5 / 2.0 ); // motors, wheel radius, robot radius
   mb->setPosition(START_X,START_Y,START_A);
 
   //Timers: pour les moteurs
@@ -59,8 +60,9 @@ void setup () {
 
   //AI
   ia = new IA(mb);
-  // On donne les protocoles à l'IA
-  ia->addProtocol(new TestProtocol(PRIORITY_MEDIUM));
+  // On donne les protocoles à l'IA :
+  //ia->addProtocol(new TestProtocol(PRIORITY_MEDIUM));
+  ia->addProtocol(new TrajetBasic(PRIORITY_MEDIUM));
 
   // On crée des valeurs au pif, les protocoles peuvent les utiliser pour communiquer entre eux
   ia->setFlag("isGreenSide", isGreenSide);
