@@ -74,7 +74,11 @@ void setup () {
 
   //Starter & Simulator
   Serial.println("Waiting starter...");
-  delayStarter();
+  while(digitalRead(STARTER)) delay(100);
+  Serial.println("Starter ready!");
+  delay(1000);
+  while(!digitalRead(STARTER)) delay(100);
+  //delayStarter();
   Serial.println("Starting!");
 
   //start time
@@ -93,6 +97,7 @@ void delayStarter() {
     if (!hasStarterBeenInserted && tmp >= 0.95) {
       hasStarterBeenInserted = true;
       Serial.println("Starter ready!");
+      
     }
     if(hasStarterBeenInserted && tmp <= 0.05){
       return;
