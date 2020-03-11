@@ -4,6 +4,8 @@
 // Les protocoles:
 #include "src/protocols/testProtocol.hpp"
 #include "src/protocols/trajetBasic.h"
+#include "src/protocols/trajetSummer.h"
+#include "src/protocols/trajetWinter.h"
 
 // Le code pour les déplacement et l'ia:
 #include "src/summerbot-motionbase/MotionBase.h"
@@ -65,7 +67,9 @@ void setup () {
   ia = new IA(mb);
   // On donne les protocoles à l'IA :
   //ia->addProtocol(new TestProtocol(PRIORITY_MEDIUM));
-  ia->addProtocol(new TrajetBasic(PRIORITY_MEDIUM));
+  //ia->addProtocol(new TrajetBasic(PRIORITY_MEDIUM));
+  ia->addProtocol(new TrajetSummer(PRIORITY_MEDIUM));
+  //ia->addProtocol(new TrajetWinter(PRIORITY_MEDIUM));
 
   // On crée des valeurs au pif, les protocoles peuvent les utiliser pour communiquer entre eux
   ia->setFlag("isGreenSide", isGreenSide);
@@ -83,10 +87,7 @@ void setup () {
   while(!digitalRead(STARTER)) delay(100);
   //delayStarter();
   Serial.println("Starting!");
-  Servo* myservo = initialiseDrapeau();
-  baisserDrapeau(myservo);
-  delay(500);
-  leverDrapeau(myservo);
+
 
   //start time
   startTime = millis();
