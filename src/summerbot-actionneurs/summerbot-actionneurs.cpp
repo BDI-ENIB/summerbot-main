@@ -19,10 +19,10 @@ initialiseDrapeau(void) {
 }
 
 void baisserDrapeau(Servo* myservo) {
-  myservo->write(0);
+  myservo->write(175);
 }
 
 
 void leverDrapeau(Servo* myservo) {
-  myservo->write(128);//rotation de 180°
+  myservo->write(5);//rotation de 180°
 }
