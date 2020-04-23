@@ -30,6 +30,7 @@
 // Préparation de la base roulante
 IntervalTimer motionTimer;
 long startTime;
+bool drapeauDejaLever = False;
 DualDRV8825* dd; // steps per rev,left dir pin, left step pin, right dir pin, right step pin, mode pin 0, mode pin 1, mode pin 2
 MotionBase *mb; // motors, wheel radius, robot radius, x, y, a
 
@@ -50,6 +51,9 @@ void setup () {
   // Les capteurs
   pinMode(DIST_BACK_LEFT, INPUT_PULLUP);
   pinMode(DIST_BACK_RIGHT, INPUT_PULLUP);
+  // Le drapeau
+  Servo* myservo = initialiseDrapeau();
+  baisserDrapeau(myservo);
 
   // On définit la position initiale du robot
   int isGreenSide = digitalRead(SIDE);
@@ -146,6 +150,12 @@ void loop () {
     mb->pause();
     return;
   }
+
+  if ( (millis()-startTime >= 95500) && ( drapeauDejaLever == False ) ) {
+    drapeauDejaLever = True;
+    leverDrapeau(myservo);    
+  }
+  
   mb->resume();
   ia->update();
 }
